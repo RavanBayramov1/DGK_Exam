@@ -154,8 +154,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 11,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
@@ -166,8 +182,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\ResultDtos\\CreateResultDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T07:58:08.636Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T07:58:08.636Z"
             },
             {
               "$type": "Document",
@@ -179,8 +194,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\AnswerDtos\\AnswerResponseDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:03:20.225Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T08:03:20.225Z"
             },
             {
               "$type": "Document",
@@ -192,8 +206,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\QuestionDtos\\UpdateQuestionDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T07:54:45.705Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T07:54:45.705Z"
             },
             {
               "$type": "Document",
@@ -205,8 +218,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\AnswerDtos\\CreateAnswerDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:03:06.686Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T08:03:06.686Z"
             },
             {
               "$type": "Document",
@@ -218,8 +230,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\ResultDtos\\ResultResponseDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T11:35:24.115Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T11:35:24.115Z"
             },
             {
               "$type": "Document",
@@ -231,8 +242,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\AuthDtos\\AuthResponseDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T07:46:33.411Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T07:46:33.411Z"
             },
             {
               "$type": "Document",
@@ -244,8 +254,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\AuthDtos\\LoginDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T07:39:26.89Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T07:39:26.89Z"
             },
             {
               "$type": "Document",
@@ -255,7 +264,7 @@
               "RelativeDocumentMoniker": "ExamSystem\\DTOs\\AuthDtos\\RegisterDto.cs",
               "ToolTip": "C:\\Users\\99450\\Desktop\\ExamSystem\\ExamSystem\\DTOs\\AuthDtos\\RegisterDto.cs",
               "RelativeToolTip": "ExamSystem\\DTOs\\AuthDtos\\RegisterDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-28T07:37:16.782Z",
               "EditorCaption": ""
@@ -270,8 +279,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\QuestionDtos\\CreateQuestionDto.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAA1wBMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T07:54:23.299Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T07:54:23.299Z"
             },
             {
               "$type": "Document",
@@ -283,8 +291,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\ExamDtos\\UpdateExamDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T07:50:36.629Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T07:50:36.629Z"
             },
             {
               "$type": "Document",
@@ -296,8 +303,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\ExamDtos\\CreateExamDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T07:50:15.526Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T07:50:15.526Z"
             },
             {
               "$type": "Document",
@@ -309,8 +315,7 @@
               "RelativeToolTip": "ExamSystem\\Models\\Question.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T10:58:28.506Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-27T10:58:28.506Z"
             },
             {
               "$type": "Document",
@@ -322,8 +327,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\QuestionDtos\\QuestionResponseDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T07:55:24.05Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T07:55:24.05Z"
             },
             {
               "$type": "Document",
@@ -335,8 +339,7 @@
               "RelativeToolTip": "ExamSystem\\DTOs\\ExamDtos\\ExamResponseDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T11:30:14.325Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T11:30:14.325Z"
             },
             {
               "$type": "Document",
@@ -348,8 +351,7 @@
               "RelativeToolTip": "ExamSystem\\Program.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAArwB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T06:13:31.897Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T06:13:31.897Z"
             },
             {
               "$type": "Document",
@@ -361,8 +363,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Implemantations\\AnswerRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T10:20:41.723Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T10:20:41.723Z"
             },
             {
               "$type": "Document",
@@ -374,8 +375,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Implemantations\\ResultRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T10:19:50.41Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T10:19:50.41Z"
             },
             {
               "$type": "Document",
@@ -387,8 +387,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Implemantations\\QuestionRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T10:14:31.473Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T10:14:31.473Z"
             },
             {
               "$type": "Document",
@@ -400,8 +399,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Implemantations\\UserRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T09:45:31.882Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T09:45:31.882Z"
             },
             {
               "$type": "Document",
@@ -413,8 +411,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Implemantations\\ExamRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:52:15.002Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T08:52:15.002Z"
             },
             {
               "$type": "Document",
@@ -426,8 +423,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Implemantations\\GenericRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:37:52.53Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T08:37:52.53Z"
             },
             {
               "$type": "Document",
@@ -439,8 +435,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Interfaces\\IAnswerRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:36:30.668Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T08:36:30.668Z"
             },
             {
               "$type": "Document",
@@ -452,8 +447,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Interfaces\\IResultRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:35:18.43Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T08:35:18.43Z"
             },
             {
               "$type": "Document",
@@ -465,8 +459,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Interfaces\\IQuestionRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:34:32.076Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T08:34:32.076Z"
             },
             {
               "$type": "Document",
@@ -478,8 +471,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Interfaces\\IExamRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:32:52.108Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T08:32:52.108Z"
             },
             {
               "$type": "Document",
@@ -491,8 +483,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Interfaces\\IUserRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:31:50.537Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T08:31:50.537Z"
             },
             {
               "$type": "Document",
@@ -504,20 +495,7 @@
               "RelativeToolTip": "ExamSystem\\Repositories\\Interfaces\\IGenericRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T08:28:37.143Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "WhenOpened": "2026-04-28T08:28:37.143Z"
             },
             {
               "$type": "Document",
@@ -529,8 +507,7 @@
               "RelativeToolTip": "ExamSystem\\appsettings.Development.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-28T06:09:19.302Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T06:09:19.302Z"
             },
             {
               "$type": "Document",
@@ -542,8 +519,7 @@
               "RelativeToolTip": "ExamSystem\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-28T06:08:59.213Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T06:08:59.213Z"
             },
             {
               "$type": "Document",
@@ -555,8 +531,7 @@
               "RelativeToolTip": "ExamSystem\\Models\\Exam.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T10:57:39.213Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-27T10:57:39.213Z"
             },
             {
               "$type": "Document",
@@ -568,8 +543,7 @@
               "RelativeToolTip": "ExamSystem\\Models\\Common\\BaseEntity.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T10:54:23.375Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-27T10:54:23.375Z"
             },
             {
               "$type": "Document",
@@ -581,8 +555,7 @@
               "RelativeToolTip": "ExamSystem\\Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T10:57:07.117Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-27T10:57:07.117Z"
             },
             {
               "$type": "Document",
@@ -594,8 +567,7 @@
               "RelativeToolTip": "ExamSystem\\Models\\Result.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T10:58:51.163Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-27T10:58:51.163Z"
             },
             {
               "$type": "Document",
@@ -607,8 +579,7 @@
               "RelativeToolTip": "ExamSystem\\Models\\Answer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T10:59:19.837Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-27T10:59:19.837Z"
             },
             {
               "$type": "Document",
@@ -620,8 +591,7 @@
               "RelativeToolTip": "ExamSystem\\Data\\AddDbContext.cs",
               "ViewState": "AgIAACIAAAAAAAAAAADwvy8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-28T05:53:53.696Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T05:53:53.696Z"
             },
             {
               "$type": "Document",
@@ -633,8 +603,7 @@
               "RelativeToolTip": "ExamSystem\\Enums\\UserRole.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T11:43:18.389Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-27T11:43:18.389Z"
             }
           ]
         }
