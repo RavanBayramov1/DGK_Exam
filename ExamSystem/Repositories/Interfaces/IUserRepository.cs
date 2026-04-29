@@ -4,5 +4,5 @@ namespace ExamSystem.Repositories.Interfaces;
 
 public interface IUserRepository : IGenericRepository<User>
 {
-    Task<User?> GetByFullNameAsync(string fullName);
+    Task<User?> GetByUserNameAsync(string userName);
 }

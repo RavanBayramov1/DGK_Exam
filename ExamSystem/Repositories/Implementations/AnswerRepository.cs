@@ -4,7 +4,6 @@ using ExamSystem.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExamSystem.Repositories.Implemantations;
-
 public class AnswerRepository : GenericRepository<Answer>, IAnswerRepository
 {
     public AnswerRepository(AddDbContext context) : base(context) { }

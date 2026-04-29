@@ -2,6 +2,7 @@
 using ExamSystem.Data;
 using ExamSystem.Repositories.Implemantations;
 using ExamSystem.Repositories.Interfaces;
+using ExamSystem.Seeds;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -47,6 +48,7 @@ namespace ExamSystem
 
 
             app.MapControllers();
+            AdminSeeder.Seed(app.Services);
 
             app.Run();
         }

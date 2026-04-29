@@ -122,5 +122,5 @@ C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\refint\ExamSystem.
 C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\ExamSystem.pdb
 C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\ExamSystem.genruntimeconfig.cache
 C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\ref\ExamSystem.dll
-C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\ExamSystem.sourcelink.json
+C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

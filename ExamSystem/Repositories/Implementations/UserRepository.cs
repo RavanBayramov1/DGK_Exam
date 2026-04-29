@@ -7,8 +7,8 @@ namespace ExamSystem.Repositories.Implemantations;
 
 public class UserRepository(AddDbContext _context) : GenericRepository<User>(_context), IUserRepository
 {
-    public async Task<User?> GetByFullNameAsync(string fullName)
+    public async Task<User?> GetByUserNameAsync(string userName)
     {
-        return await _dbSet.FirstOrDefaultAsync(u => u.FullName == fullName);
+        return await _dbSet.FirstOrDefaultAsync(u => u.FullName == userName);
     }
 }
