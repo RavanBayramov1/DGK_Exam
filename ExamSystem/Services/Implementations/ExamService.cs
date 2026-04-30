@@ -54,8 +54,7 @@ public class ExamService(IExamRepository _examRepository) : IExamService
             return Error.NotFound("İmtahan tapılmadı!");
         if(exam.Status == "active")
             return Error.Validation("Aktiv imtahanı silmək olmaz!");
-        exam.IsDeleted = true;
-        await _examRepository.UpdateAsync(exam);
+        await _examRepository.DeleteAsync(id);
         return ServiceResult.Success();
     }
 

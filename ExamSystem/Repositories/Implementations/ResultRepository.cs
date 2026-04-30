@@ -7,7 +7,7 @@ namespace ExamSystem.Repositories.Implemantations;
 
 public class ResultRepository : GenericRepository<Result>, IResultRepository
 {
-    public ResultRepository(AddDbContext context) : base(context) { }
+    public ResultRepository(AddDbContext _context) : base(_context) { }
 
     public async Task<List<Result>> GetByExamIdAsync(int examId)
     {

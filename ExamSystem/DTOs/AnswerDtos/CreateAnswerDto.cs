@@ -14,6 +14,11 @@ public class CreateAnswerDto
     [Required(ErrorMessage = "Cavab mətni boş ola bilməz.")]
     public string AnswerText { get; set; } = string.Empty;
 
+    public bool IsCorrect { get; set; }
+
+    [Range(1, 100, ErrorMessage = "Bal 1-100 arasında olmalıdır.")]
+    public int EarnedPoint { get; set; }
+
 
     public static implicit operator Answer(CreateAnswerDto dto) => new()
     {

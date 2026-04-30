@@ -1,12 +1,12 @@
 ﻿using ExamSystem.Common;
 using ExamSystem.DTOs.QuestionDtos;
 using ExamSystem.Models;
-using ExamSystem.Repositories.Implemantations;
 using ExamSystem.Services.Interfaces;
+using ExamSystem.Repositories.Interfaces;
 
 namespace ExamSystem.Services.Implementations;
 
-public class QuestionService(QuestionRepository _questionRepository) : IQuestionService
+public class QuestionService(IQuestionRepository _questionRepository) : IQuestionService
 {
 
     public async Task<ServiceResult<List<QuestionResponseDto>>> GetAllAsync()
