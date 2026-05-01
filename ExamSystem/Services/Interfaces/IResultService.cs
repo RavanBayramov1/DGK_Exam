@@ -11,5 +11,7 @@ public interface IResultService
     Task<ServiceResult<List<ResultResponseDto>>> GetByStudentIdAsync(int studentId);
     Task<ServiceResult> CreateAsync(CreateResultDto dto);
     Task<ServiceResult> UpdateAsync(int id, UpdateResultDto dto);
+
+    //Task<ServiceResult> CalculateScoreAsync(int resultId);
     Task<ServiceResult> DeleteAsync(int id);
 }

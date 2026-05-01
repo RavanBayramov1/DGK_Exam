@@ -62,6 +62,21 @@ public class ResultService(IResultRepository _resultRepository) : IResultService
         await _resultRepository.UpdateAsync(result); 
         return ServiceResult.Success();
     }
+
+    //public async Task<ServiceResult> CalculateScoreAsync(int resultId)
+    //{
+    //    var result = await _resultRepository.GetByIdAsync(resultId);
+    //    if (result == null || result.IsDeleted)
+    //        return Error.NotFound("Nəticə tapılmadı!");
+
+    //    var answers = await _answerRepository.GetByResultIdAsync(resultId);
+    //    var totalScore = answers.Where(a => !a.IsDeleted).Sum(a => a.EarnedPoint);
+
+    //    result.Score = totalScore;
+    //    result.Status = "graded";
+    //    await _resultRepository.UpdateAsync(result);
+    //    return ServiceResult.Success();
+    //}
     public async Task<ServiceResult> DeleteAsync(int id)
     {
         var result = await _resultRepository.GetByIdAsync(id);
@@ -73,4 +88,5 @@ public class ResultService(IResultRepository _resultRepository) : IResultService
         await _resultRepository.UpdateAsync(result);
         return ServiceResult.Success();
     }
+
 }

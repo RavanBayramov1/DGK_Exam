@@ -9,6 +9,6 @@ public class UserRepository(AddDbContext _context) : GenericRepository<User>(_co
 {
     public async Task<User?> GetByUserNameAsync(string userName)
     {
-        return await _dbSet.FirstOrDefaultAsync(u => u.FullName == userName);
+        return await _dbSet.FirstOrDefaultAsync(u => u.UserName == userName);
     }
 }

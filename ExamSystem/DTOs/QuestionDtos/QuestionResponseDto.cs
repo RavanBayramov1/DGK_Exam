@@ -9,7 +9,7 @@ public class QuestionResponseDto
     public string Text { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public string Options { get; set; } = string.Empty;
-    public string CorrectAnswer { get; set; } = string.Empty;
+    //public string CorrectAnswer { get; set; } = string.Empty;
     public int Point { get; set; }
 
 

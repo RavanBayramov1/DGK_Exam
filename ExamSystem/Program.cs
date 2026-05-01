@@ -1,4 +1,4 @@
-
+﻿
 using ExamSystem.Data;
 using ExamSystem.Extensions;
 using ExamSystem.Middlewares;
@@ -29,9 +29,20 @@ public class Program
         // Services
         builder.Services.AddServices();
 
+        // BackgroundService
+        builder.Services.AddBackgroundServices();
+
+        // JWT
+        builder.Services.AddJwt(builder.Configuration);
+
+        // Swagger
+        builder.Services.AddSwagger(); 
+
+
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
 
         var app = builder.Build();
 

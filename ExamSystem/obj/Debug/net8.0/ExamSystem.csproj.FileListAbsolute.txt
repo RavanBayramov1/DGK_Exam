@@ -123,7 +123,7 @@ C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\ExamSystem.pdb
 C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\ExamSystem.genruntimeconfig.cache
 C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\ref\ExamSystem.dll
 C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\ExamSystem.sourcelink.json
-C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\99450\Desktop\ExamSystem\ExamSystem\bin\Debug\net8.0\Pipelines.Sockets.Unofficial.dll
 C:\Users\99450\Desktop\ExamSystem\ExamSystem\bin\Debug\net8.0\StackExchange.Redis.dll
 C:\Users\99450\Desktop\ExamSystem\ExamSystem\bin\Debug\net8.0\System.IO.Hashing.dll
+C:\Users\99450\Desktop\ExamSystem\ExamSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

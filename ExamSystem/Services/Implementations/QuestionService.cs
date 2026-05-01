@@ -18,6 +18,14 @@ public class QuestionService(IQuestionRepository _questionRepository) : IQuestio
             .ToList();
     }
 
+    public async Task<ServiceResult<QuestionResponseDto>> GetByIdAsync(int id)
+    {
+        var question = await _questionRepository.GetByIdAsync(id);
+        if(question == null || question.IsDeleted)
+            return Error.NotFound("Suallar tapılmadı!");
+        return (QuestionResponseDto)question;
+    }
+
     public async Task<ServiceResult<List<QuestionResponseDto>>> GetByExamIdAsync(int examId)
     {
         var question = await _questionRepository.GetByExamIdAsync(examId);
@@ -27,13 +35,6 @@ public class QuestionService(IQuestionRepository _questionRepository) : IQuestio
 
     }
 
-    public async Task<ServiceResult<QuestionResponseDto>> GetByIdAsync(int id)
-    {
-        var question = await _questionRepository.GetByIdAsync(id);
-        if(question == null || question.IsDeleted)
-            return Error.NotFound("Suallar tapılmadı!");
-        return (QuestionResponseDto)question;
-    }
     public async Task<ServiceResult> CreateAsync(CreateQuestionDto dto)
     {
         Question question = dto;
