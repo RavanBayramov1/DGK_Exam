@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ExamSystem.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace ExamSystem.DTOs.AuthDtos;
 
 public class AssignRoleDto
 {
-    [Required]
-    [RegularExpression("Admin|Teacher|Student", ErrorMessage = "Rol Admin, Teacher və ya Student olmalıdır.")]
-    public string Role { get; set; } = string.Empty;
+    [EnumDataType(typeof(UserRole), ErrorMessage = "Rol düzgün deyil.")]
+    public UserRole Role { get; set; }      
+    public int? GroupId { get; set; }  // Yalnız Student üçün
 }

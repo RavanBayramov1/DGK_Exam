@@ -2,8 +2,9 @@
 
 namespace ExamSystem.Repositories.Interfaces;
 
-public interface IResultRepository : IGenericRepository<Result>
+public interface IResultRepository : IGenericRepository<ExamResult>
 {
-    Task<List<Result>> GetByExamIdAsync(int examId);
-    Task<List<Result>> GetByStudentIdAsync(int studentId);
+    Task<ExamResult?> GetByExamAndStudentAsync(int examId, int studentId);
+    Task<List<ExamResult>> GetByStudentIdAsync(int studentId);
+    Task<List<ExamResult>> GetByExamIdAsync(int examId);
 }

@@ -5,15 +5,11 @@ namespace ExamSystem.Services.Implementations;
 
 public class TokenBlacklistService(IConnectionMultiplexer _redis) : ITokenBlacklistService
 {
-    public async Task AddToBlacklistAsync(string token, TimeSpan expiry)
-    {
-        var db = _redis.GetDatabase();
-        await db.StringSetAsync(token, "blacklisted", expiry);
-    }
+    private readonly IDatabase _db = _redis.GetDatabase();
 
-    public async Task<bool> IsBlacklistedAsync(string token)
-    {
-        var db = _redis.GetDatabase();
-        return await db.KeyExistsAsync(token);
-    }
+    public async Task AddToBlacklistAsync(string token, TimeSpan expiry) =>
+        await _db.StringSetAsync(token, "blacklisted", expiry);
+
+    public async Task<bool> IsBlacklistedAsync(string token) =>
+        await _db.KeyExistsAsync(token);
 }

@@ -1,83 +1,83 @@
-﻿using ExamSystem.Controllers.Base;
-using ExamSystem.DTOs.ResultDtos;
+﻿using ExamSystem.DTOs.ResultDtos;
+using ExamSystem.Enums;
 using ExamSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace ExamSystem.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class ResultController(IResultService _resultService) : ApiControllerBase
+public class ResultController(IResultService _resultService) : ControllerBase
 {
     [HttpGet]
     [Authorize(Roles = "Admin,Teacher")]
     public async Task<IActionResult> GetAll()
     {
         var result = await _resultService.GetAllAsync();
-        if(!result.IsSuccess)
-            return HandleFailure(result);
         return Ok(result.Data);
     }
 
-    [HttpGet("{Id}")]
+    [HttpGet("{id}")]
+    [Authorize(Roles = "Admin,Teacher")]
     public async Task<IActionResult> GetById(int id)
     {
         var result = await _resultService.GetByIdAsync(id);
         if (!result.IsSuccess)
-            return HandleFailure(result);
+            return result.Error!.Type switch
+            {
+                ErrorType.NotFound => NotFound(result.Error.Description),
+                _ => BadRequest(result.Error.Description)
+            };
+
         return Ok(result.Data);
     }
 
-    [HttpGet("Exam/ExamId")]
+    [HttpGet("exam/{examId}")]
     [Authorize(Roles = "Admin,Teacher")]
     public async Task<IActionResult> GetByExamId(int examId)
     {
         var result = await _resultService.GetByExamIdAsync(examId);
-        if (!result.IsSuccess)
-            return HandleFailure(result);
         return Ok(result.Data);
     }
 
-    [HttpGet("Student/StudentId")]
+    [HttpGet("student/{studentId}")]
+    [Authorize(Roles = "Admin,Teacher,Student")]
     public async Task<IActionResult> GetByStudentId(int studentId)
     {
         var result = await _resultService.GetByStudentIdAsync(studentId);
-        if (!result.IsSuccess)
-            return HandleFailure(result);
         return Ok(result.Data);
     }
 
-    [HttpPost]
-    [Authorize(Roles = "Admin,Teacher")]
-    public async Task<IActionResult> Create(CreateResultDto dto)
-    {
-        var result = await _resultService.CreateAsync(dto);
-        if (!result.IsSuccess)
-            return HandleFailure(result);
-        return Ok("Nəticə yaradıldı.");
-    }
-
-    [HttpPatch("{Id}/Status")]
+    [HttpPut("{id}")]
     [Authorize(Roles = "Admin,Teacher")]
     public async Task<IActionResult> Update(int id, UpdateResultDto dto)
     {
         var result = await _resultService.UpdateAsync(id, dto);
         if (!result.IsSuccess)
-            return HandleFailure(result);
-        return Ok("Nəticə yeniləndi.");
+            return result.Error!.Type switch
+            {
+                ErrorType.NotFound => NotFound(result.Error.Description),
+                _ => BadRequest(result.Error.Description)
+            };
+
+        return Ok("Nəticə uğurla yeniləndi.");
     }
 
-    [HttpDelete("{Id}")]
+    [HttpDelete("{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
         var result = await _resultService.DeleteAsync(id);
         if (!result.IsSuccess)
-            return HandleFailure(result);
-        return Ok("Nəticə ləğv edildi.");
-    }
+            return result.Error!.Type switch
+            {
+                ErrorType.NotFound => NotFound(result.Error.Description),
+                _ => BadRequest(result.Error.Description)
+            };
 
+        return NoContent();
+    }
 }

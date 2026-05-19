@@ -1,83 +1,9 @@
 [
   {
-    "ContainingType": "ExamSystem.Controllers.AdminController",
-    "Method": "AssignRole",
-    "RelativePath": "api/Admin/assign-role/{userId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "dto",
-        "Type": "ExamSystem.DTOs.AuthDtos.AssignRoleDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ExamSystem.Controllers.AdminController",
-    "Method": "ResetPassword",
-    "RelativePath": "api/Admin/reset-password/{userId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "dto",
-        "Type": "ExamSystem.DTOs.AuthDtos.ResetPasswordDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ExamSystem.Controllers.AnswerController",
-    "Method": "Create",
-    "RelativePath": "api/Answer",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "ExamSystem.DTOs.AnswerDtos.CreateAnswerDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ExamSystem.Controllers.AnswerController",
-    "Method": "GetByResultId",
-    "RelativePath": "api/Answer/result/{resultId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "resultId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "ExamSystem.Controllers.AuthController",
     "Method": "Login",
-    "RelativePath": "api/Auth/Login",
-    "HttpMethod": "PUT",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -91,18 +17,34 @@
   },
   {
     "ContainingType": "ExamSystem.Controllers.AuthController",
-    "Method": "Logout",
-    "RelativePath": "api/Auth/LogOut",
-    "HttpMethod": "DELETE",
+    "Method": "LogoutAsync",
+    "RelativePath": "api/Auth/logout",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ExamSystem.Common.ServiceResult",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "ExamSystem.Controllers.AuthController",
     "Method": "Register",
-    "RelativePath": "api/Auth/Register",
+    "RelativePath": "api/Auth/register",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -117,8 +59,81 @@
   },
   {
     "ContainingType": "ExamSystem.Controllers.ExamController",
+    "Method": "GetAll",
+    "RelativePath": "api/Exam",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.ExamController",
+    "Method": "Create",
+    "RelativePath": "api/Exam",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ExamSystem.DTOs.ExamDtos.CreateExamDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.ExamController",
+    "Method": "AddQuestion",
+    "RelativePath": "api/Exam/{examId}/questions/{questionId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "examId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "questionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "points",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.ExamController",
+    "Method": "RemoveQuestion",
+    "RelativePath": "api/Exam/{examId}/questions/{questionId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "examId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "questionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.ExamController",
     "Method": "StartExam",
-    "RelativePath": "api/Exam/{examId}/Start",
+    "RelativePath": "api/Exam/{examId}/start",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -134,7 +149,7 @@
   {
     "ContainingType": "ExamSystem.Controllers.ExamController",
     "Method": "GetById",
-    "RelativePath": "api/Exam/{Id}",
+    "RelativePath": "api/Exam/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -149,15 +164,20 @@
   },
   {
     "ContainingType": "ExamSystem.Controllers.ExamController",
-    "Method": "Create",
-    "RelativePath": "api/Exam/CreateExam",
-    "HttpMethod": "POST",
+    "Method": "Update",
+    "RelativePath": "api/Exam/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
         "Name": "dto",
-        "Type": "ExamSystem.DTOs.ExamDtos.CreateExamDto",
+        "Type": "ExamSystem.DTOs.ExamDtos.UpdateExamDto",
         "IsRequired": true
       }
     ],
@@ -166,7 +186,7 @@
   {
     "ContainingType": "ExamSystem.Controllers.ExamController",
     "Method": "Delete",
-    "RelativePath": "api/Exam/Delete",
+    "RelativePath": "api/Exam/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -174,25 +194,15 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
     "ContainingType": "ExamSystem.Controllers.ExamController",
-    "Method": "GetAll",
-    "RelativePath": "api/Exam/GetAll",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ExamSystem.Controllers.ExamController",
     "Method": "SubmitExam",
-    "RelativePath": "api/Exam/Submit",
+    "RelativePath": "api/Exam/submit",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -206,9 +216,51 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ExamSystem.Controllers.ExamController",
+    "ContainingType": "ExamSystem.Controllers.GroupController",
+    "Method": "GetAll",
+    "RelativePath": "api/Group",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.GroupController",
+    "Method": "Create",
+    "RelativePath": "api/Group",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ExamSystem.DTOs.GroupDtos.CreateGroupDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.GroupController",
+    "Method": "GetById",
+    "RelativePath": "api/Group/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.GroupController",
     "Method": "Update",
-    "RelativePath": "api/Exam/Update",
+    "RelativePath": "api/Group/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -216,11 +268,27 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       },
       {
         "Name": "dto",
-        "Type": "ExamSystem.DTOs.ExamDtos.UpdateExamDto",
+        "Type": "ExamSystem.DTOs.GroupDtos.UpdateGroupDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.GroupController",
+    "Method": "Delete",
+    "RelativePath": "api/Group/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -333,24 +401,8 @@
   },
   {
     "ContainingType": "ExamSystem.Controllers.ResultController",
-    "Method": "Create",
-    "RelativePath": "api/Result",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "ExamSystem.DTOs.ResultDtos.CreateResultDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ExamSystem.Controllers.ResultController",
     "Method": "GetById",
-    "RelativePath": "api/Result/{Id}",
+    "RelativePath": "api/Result/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -365,25 +417,9 @@
   },
   {
     "ContainingType": "ExamSystem.Controllers.ResultController",
-    "Method": "Delete",
-    "RelativePath": "api/Result/{Id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ExamSystem.Controllers.ResultController",
     "Method": "Update",
-    "RelativePath": "api/Result/{Id}/Status",
-    "HttpMethod": "PATCH",
+    "RelativePath": "api/Result/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -402,8 +438,24 @@
   },
   {
     "ContainingType": "ExamSystem.Controllers.ResultController",
+    "Method": "Delete",
+    "RelativePath": "api/Result/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.ResultController",
     "Method": "GetByExamId",
-    "RelativePath": "api/Result/Exam/ExamId",
+    "RelativePath": "api/Result/exam/{examId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -411,7 +463,7 @@
       {
         "Name": "examId",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -419,7 +471,7 @@
   {
     "ContainingType": "ExamSystem.Controllers.ResultController",
     "Method": "GetByStudentId",
-    "RelativePath": "api/Result/Student/StudentId",
+    "RelativePath": "api/Result/student/{studentId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -427,7 +479,170 @@
       {
         "Name": "studentId",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.SubjectController",
+    "Method": "GetAll",
+    "RelativePath": "api/Subject",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.SubjectController",
+    "Method": "Create",
+    "RelativePath": "api/Subject",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ExamSystem.DTOs.SubjectDtos.CreateSubjectDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.SubjectController",
+    "Method": "GetById",
+    "RelativePath": "api/Subject/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.SubjectController",
+    "Method": "Update",
+    "RelativePath": "api/Subject/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ExamSystem.DTOs.SubjectDtos.UpdateSubjectDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.SubjectController",
+    "Method": "Delete",
+    "RelativePath": "api/Subject/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.UserController",
+    "Method": "GetAll",
+    "RelativePath": "api/User",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.UserController",
+    "Method": "GetById",
+    "RelativePath": "api/User/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.UserController",
+    "Method": "Delete",
+    "RelativePath": "api/User/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.UserController",
+    "Method": "AssignRole",
+    "RelativePath": "api/User/{id}/assign-role",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ExamSystem.DTOs.AuthDtos.AssignRoleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.UserController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/User/{id}/reset-password",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ExamSystem.DTOs.AuthDtos.ResetPasswordDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

@@ -1,4 +1,5 @@
 ﻿using ExamSystem.Repositories.Implemantations;
+using ExamSystem.Repositories.Implementations;
 using ExamSystem.Repositories.Interfaces;
 using ExamSystem.Services.Implementations;
 using ExamSystem.Services.Interfaces;
@@ -17,7 +18,9 @@ public static class ServiceExtensions
         services.AddScoped<IExamRepository, ExamRepository>();
         services.AddScoped<IQuestionRepository, QuestionRepository>();
         services.AddScoped<IResultRepository, ResultRepository>();
-        services.AddScoped<IAnswerRepository, AnswerRepository>();
+        services.AddScoped<IGroupRepository, GroupRepository>();
+        services.AddScoped<ISubjectRepository, SubjectRepository>();
+        services.AddScoped<IExamQuestionRepository, ExamQuestionRepository>();
         return services;
     }
 
@@ -29,7 +32,7 @@ public static class ServiceExtensions
         services.AddScoped<IExamService, ExamService>();
         services.AddScoped<IQuestionService, QuestionService>();
         services.AddScoped<IResultService, ResultService>();
-        services.AddScoped<IAnswerService, AnswerService>();
+        services.AddScoped<ISubjectService, SubjectService>();
         services.AddScoped<ITokenBlacklistService, TokenBlacklistService>();
         return services;
     }

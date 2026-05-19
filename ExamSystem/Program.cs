@@ -41,7 +41,6 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
 
 
         var app = builder.Build();
@@ -53,13 +52,17 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseHttpsRedirection();
         app.UseAuthentication();
-        app.UseAuthorization();
         app.UseMiddleware<TokenBlacklistMiddleware>();
+        app.UseAuthorization();
+
+        using (var scope = app.Services.CreateScope())
+        {
+            AdminSeeder.Seed(scope.ServiceProvider);
+        }
 
         app.MapControllers();
-        AdminSeeder.Seed(app.Services);
-
         app.Run();
     }
 }

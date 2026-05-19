@@ -5,38 +5,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExamSystem.Repositories.Implemantations;
 
-public class GenericRepository<T>(AddDbContext _context) : IGenericRepository<T> where T : BaseEntity, new()
+public class GenericRepository<T>(AddDbContext _context) : IGenericRepository<T> where T : BaseEntity
 {
     protected readonly DbSet<T> _dbSet = _context.Set<T>();
-    public async Task<List<T>> GetAllAsync()
-    {
-        return await _dbSet.ToListAsync();
-    }
 
-    public async Task<T?> GetByIdAsync(int id)
-    {
-        return await _dbSet.FindAsync(id);
-    }
+    public async Task<List<T>> GetAllAsync() =>
+        await _dbSet.ToListAsync();
 
-    public async Task AddAsync(T entity)
-    {
+    public async Task<T?> GetByIdAsync(int id) =>
+        await _dbSet.FindAsync(id);
+
+    public async Task AddAsync(T entity) =>
         await _dbSet.AddAsync(entity);
-        await _context.SaveChangesAsync();
-    }
 
-    public async Task UpdateAsync(T entity)
-    {
+    public void Update(T entity) =>
         _dbSet.Update(entity);
-        await _context.SaveChangesAsync();
+
+    public void SoftDelete(T entity)
+    {
+        entity.IsDeleted = true;
+        entity.UpdatedTime = DateTime.UtcNow;
+        _dbSet.Update(entity);
     }
 
-    public async Task DeleteAsync(int id)
-    {
-        var entity = await _dbSet.FindAsync(id);
-        if (entity != null)
-        {
-            _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
-        }
-    }
+    public async Task<bool> SaveChangesAsync() =>
+        await _context.SaveChangesAsync() > 0;
 }

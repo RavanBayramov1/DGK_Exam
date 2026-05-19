@@ -4,5 +4,5 @@ namespace ExamSystem.Services.Interfaces;
 
 public interface IJwtService
 {
-    string GenerateToken(User user);
+    string GenerateToken(AppUser user);
 }

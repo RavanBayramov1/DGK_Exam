@@ -1,33 +1,39 @@
 ﻿using ExamSystem.Data;
+using ExamSystem.Enums;
+using ExamSystem.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExamSystem.Services.Implementations;
 
-public class ExamStatusBackgroundService(IServiceProvider _serviceProvider) : BackgroundService
+public class ExamStatusBackgroundService(IServiceScopeFactory _scopeFactory) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            using var scope = _serviceProvider.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<AddDbContext>();
+            using var scope = _scopeFactory.CreateScope();
+            var examRepo = scope.ServiceProvider.GetRequiredService<IExamRepository>();
 
             var now = DateTime.UtcNow;
-            var exams = await context.Exams.Where(e => !e.IsDeleted).ToListAsync(stoppingToken);
+            var exams = await examRepo.GetAllAsync();
 
             foreach (var exam in exams)
             {
-                if (exam.StartTime <= now && exam.Status == "inactive")
+                var endTime = exam.StartTime.AddMinutes(exam.DurationMinutes);
+
+                if (exam.Status == ExamStatus.Scheduled && exam.StartTime <= now)
                 {
-                    exam.Status = "active";
+                    exam.Status = ExamStatus.Active;
+                    examRepo.Update(exam);
                 }
-                else if (exam.StartTime.AddMinutes(exam.Duration) <= now && exam.Status == "active")
+                else if (exam.Status == ExamStatus.Active && endTime <= now)
                 {
-                    exam.Status = "finished";
+                    exam.Status = ExamStatus.Ended;
+                    examRepo.Update(exam);
                 }
             }
 
-            await context.SaveChangesAsync(stoppingToken);
+            await examRepo.SaveChangesAsync();
             await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
         }
     }

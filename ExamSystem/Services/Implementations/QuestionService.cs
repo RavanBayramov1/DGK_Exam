@@ -6,64 +6,76 @@ using ExamSystem.Repositories.Interfaces;
 
 namespace ExamSystem.Services.Implementations;
 
-public class QuestionService(IQuestionRepository _questionRepository) : IQuestionService
+public class QuestionService(IQuestionRepository _questionRepo) : IQuestionService
 {
-
     public async Task<ServiceResult<List<QuestionResponseDto>>> GetAllAsync()
     {
-        var questions = await _questionRepository.GetAllAsync();
-        return questions
-            .Where(q => !q.IsDeleted)
-            .Select(q => (QuestionResponseDto)q)
-            .ToList();
+        var questions = await _questionRepo.GetAllAsync();
+        var result = questions.Select(q => (QuestionResponseDto)q).ToList();
+        return ServiceResult<List<QuestionResponseDto>>.Success(result);
     }
 
     public async Task<ServiceResult<QuestionResponseDto>> GetByIdAsync(int id)
     {
-        var question = await _questionRepository.GetByIdAsync(id);
-        if(question == null || question.IsDeleted)
-            return Error.NotFound("Suallar tapılmadı!");
-        return (QuestionResponseDto)question;
+        var question = await _questionRepo.GetByIdAsync(id);
+        if (question is null)
+            return Error.NotFound("Sual tapılmadı.");
+
+        return ServiceResult<QuestionResponseDto>.Success(question);
     }
 
     public async Task<ServiceResult<List<QuestionResponseDto>>> GetByExamIdAsync(int examId)
     {
-        var question = await _questionRepository.GetByExamIdAsync(examId);
-        if (!question.Any())
-            return Error.NotFound("İmtahan sualları tapılmadı!");
-        return question.Select(q => (QuestionResponseDto)q).ToList();
-
+        var questions = await _questionRepo.GetByExamIdAsync(examId);
+        var result = questions.Select(q => (QuestionResponseDto)q).ToList();
+        return ServiceResult<List<QuestionResponseDto>>.Success(result);
     }
 
-    public async Task<ServiceResult> CreateAsync(CreateQuestionDto dto)
+    public async Task<ServiceResult<QuestionResponseDto>> CreateAsync(CreateQuestionDto dto, int teacherId)
     {
         Question question = dto;
-        await _questionRepository.AddAsync(question);
-        return ServiceResult.Success();
+        question.TeacherId = teacherId;
+
+        await _questionRepo.AddAsync(question);
+        await _questionRepo.SaveChangesAsync();
+
+        return ServiceResult<QuestionResponseDto>.Success(question);
     }
 
-    public async Task<ServiceResult> UpdateAsync(int id, UpdateQuestionDto dto)
+    public async Task<ServiceResult<QuestionResponseDto>> UpdateAsync(int id, UpdateQuestionDto dto, int teacherId)
     {
-        var question = await _questionRepository.GetByIdAsync(id);
-        if (question == null || question.IsDeleted)
-            return Error.NotFound("Sual tapılmadı!");
+        var question = await _questionRepo.GetByIdAsync(id);
+        if (question is null)
+            return Error.NotFound("Sual tapılmadı.");
 
-        question.Text = dto.Text;
+        if (question.TeacherId != teacherId)
+            return Error.Unauthorized("Bu sualı dəyişməyə icazəniz yoxdur.");
+
+        question.QuestionText = dto.QuestionText;
         question.Type = dto.Type;
+        question.DefaultPoints = dto.DefaultPoints;
         question.Options = dto.Options;
-        question.CorrectAnswer = dto.CorrectAnswer;
-        question.Point = dto.Point;
+        question.CorrectAnswers = dto.CorrectAnswers;
+        question.SubjectId = dto.SubjectId;
 
-        await _questionRepository.UpdateAsync(question);
-        return ServiceResult.Success();
+        _questionRepo.Update(question);
+        await _questionRepo.SaveChangesAsync();
+
+        return ServiceResult<QuestionResponseDto>.Success(question);
     }
 
-    public async Task<ServiceResult> DeleteAsync(int id)
+    public async Task<ServiceResult> DeleteAsync(int id, int teacherId)
     {
-        var question = await _questionRepository.GetByIdAsync(id);
-        if(question == null || question.IsDeleted)
-            return Error.NotFound("Belə bir sual yoxdur!");
-        await _questionRepository.DeleteAsync(id);
+        var question = await _questionRepo.GetByIdAsync(id);
+        if (question is null)
+            return Error.NotFound("Sual tapılmadı.");
+
+        if (question.TeacherId != teacherId)
+            return Error.Unauthorized("Bu sualı silməyə icazəniz yoxdur.");
+
+        _questionRepo.SoftDelete(question);
+        await _questionRepo.SaveChangesAsync();
+
         return ServiceResult.Success();
     }
 }

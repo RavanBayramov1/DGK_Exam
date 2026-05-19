@@ -13,11 +13,11 @@ public static class AdminSeeder
 
         if (!context.Users.Any(u => u.Role == UserRole.Admin))
         {
-            context.Users.Add(new User
+            context.Users.Add(new AppUser
             {
-                UserName = "admin",
                 FullName = "System Admin",
-                Password = BCrypt.Net.BCrypt.HashPassword("Admin@123"),
+                Email = "admin@system.com",      // UserName → Email
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123"),  // Password → PasswordHash
                 Role = UserRole.Admin
             });
             context.SaveChanges();

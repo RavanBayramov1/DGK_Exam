@@ -1,8 +1,11 @@
-﻿using ExamSystem.Models;
+﻿using ExamSystem.Enums;
+using ExamSystem.Models;
 
 namespace ExamSystem.Repositories.Interfaces;
 
-public interface IUserRepository : IGenericRepository<User>
+public interface IUserRepository : IGenericRepository<AppUser>
 {
-    Task<User?> GetByUserNameAsync(string userName);
+    Task<AppUser?> GetByEmailAsync(string email);
+    Task<List<AppUser>> GetByRoleAsync(UserRole role);
+    Task<List<AppUser>> GetByGroupIdAsync(int groupId);
 }

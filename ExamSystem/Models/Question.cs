@@ -1,15 +1,25 @@
-﻿using ExamSystem.Models.Common;
+﻿using ExamSystem.Enums;
+using ExamSystem.Models.Common;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace ExamSystem.Models;
 
 public class Question : BaseEntity
 {
-    public int ExamId { get; set; }
-    public string Text { get; set; } = string.Empty;
-    public string Type { get; set; } = string.Empty;
-    public string Options { get; set; } = string.Empty;
-    public string CorrectAnswer { get; set; } = string.Empty;
-    public int Point { get; set; }
+    public string QuestionText { get; set; }
+    public QuestionType Type { get; set; }
+    public decimal DefaultPoints { get; set; }
 
-    public Exam Exam { get; set; } = null!;
-    public ICollection<Answer> Answers { get; set; } = new List<Answer>();
+    [Column(TypeName = "jsonb")]
+    public List<string> Options { get; set; } // Variantlar siyahısı
+    
+    [Column(TypeName = "jsonb")]
+    public List<string> CorrectAnswers { get; set; } // Düzgün cavab(lar)
+
+    public int TeacherId { get; set; }
+    public AppUser Teacher { get; set; }
+
+    public int SubjectId { get; set; }
+    public Subject Subject { get; set; }
+
+    public ICollection<ExamQuestion> ExamQuestions { get; set; }
 }

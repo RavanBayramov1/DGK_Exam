@@ -1,4 +1,4 @@
-﻿using ExamSystem.DTOs.AnswerDtos;
+﻿using ExamSystem.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace ExamSystem.DTOs.ExamDtos;
@@ -10,5 +10,5 @@ public class SubmitExamDto
 
     [Required(ErrorMessage = "Cavablar boş ola bilməz.")]
     [MinLength(1, ErrorMessage = "Ən azı bir cavab olmalıdır.")]
-    public List<CreateAnswerDto> Answers { get; set; } = new();
+    public List<StudentAnswerDto> Answers { get; set; } = new();
 }

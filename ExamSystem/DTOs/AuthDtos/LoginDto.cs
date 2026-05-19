@@ -4,9 +4,8 @@ namespace ExamSystem.DTOs.AuthDtos;
 
 public class LoginDto
 {
-    [Required(ErrorMessage = "İstifadəçi adı boş ola bilməz.")]
-    [MinLength(4, ErrorMessage = "İstifadəçi adı minimum 4 simvol olmalıdır.")]
-    public string UserName { get; set; } = string.Empty;
+    [EmailAddress(ErrorMessage = "Email formatı yanlışdır.")]
+    public string Email { get; set; } = string.Empty;  
 
 
     [Required(ErrorMessage = "Şifrə boş ola bilməz.")]
