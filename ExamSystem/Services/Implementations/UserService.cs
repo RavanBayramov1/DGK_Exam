@@ -3,6 +3,7 @@ using ExamSystem.DTOs.AuthDtos;
 using ExamSystem.Enums;
 using ExamSystem.Repositories.Interfaces;
 using ExamSystem.Services.Interfaces;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ExamSystem.Services.Implementations;
 
@@ -19,7 +20,7 @@ public class UserService(IUserRepository _userRepo) : IUserService
     {
         var user = await _userRepo.GetByIdAsync(id);
         if (user is null)
-            return Error.NotFound("İstifadəçi tapılmadı.");
+            return ErrorMessages.User.NotFound;
 
         return ServiceResult<UserSummaryDto>.Success(user);
     }
@@ -28,7 +29,7 @@ public class UserService(IUserRepository _userRepo) : IUserService
     {
         var user = await _userRepo.GetByIdAsync(id);
         if (user is null)
-            return Error.NotFound("İstifadəçi tapılmadı.");
+            return ErrorMessages.User.NotFound;
 
         _userRepo.SoftDelete(user);
         await _userRepo.SaveChangesAsync();
@@ -40,13 +41,9 @@ public class UserService(IUserRepository _userRepo) : IUserService
     {
         var user = await _userRepo.GetByIdAsync(userId);
         if (user is null)
-            return Error.NotFound("İstifadəçi tapılmadı.");
-
-        if (dto.Role == UserRole.Student && dto.GroupId is null)
-            return Error.Validation("Student üçün GroupId mütləqdir.");
+            return ErrorMessages.User.NotFound;
 
         user.Role = dto.Role;
-        user.GroupId = dto.Role == UserRole.Student ? dto.GroupId : null;
 
         _userRepo.Update(user);
         await _userRepo.SaveChangesAsync();
@@ -58,7 +55,7 @@ public class UserService(IUserRepository _userRepo) : IUserService
     {
         var user = await _userRepo.GetByIdAsync(userId);
         if (user is null)
-            return Error.NotFound("İstifadəçi tapılmadı.");
+            return ErrorMessages.User.NotFound;
 
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
 

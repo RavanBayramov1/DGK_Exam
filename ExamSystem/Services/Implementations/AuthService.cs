@@ -14,7 +14,7 @@ public class AuthService(IUserRepository _userRepo,IJwtService _jwtService,IToke
     {
         var user = await _userRepo.GetByEmailAsync(dto.Email);
         if (user is null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
-            return Error.Unauthorized("Email və ya şifrə yanlışdır.");
+            return ErrorMessages.User.InvalidCredentials;
 
         var token = _jwtService.GenerateToken(user);
         AuthResponseDto response = user;
@@ -27,7 +27,7 @@ public class AuthService(IUserRepository _userRepo,IJwtService _jwtService,IToke
     {
         var existing = await _userRepo.GetByEmailAsync(dto.Email);
         if (existing is not null)
-            return Error.Conflict("Bu email artıq istifadə olunur.");
+            return ErrorMessages.User.EmailTaken;
 
         AppUser user = dto;
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);

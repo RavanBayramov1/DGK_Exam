@@ -1,4 +1,5 @@
-﻿using ExamSystem.DTOs.GroupDtos;
+﻿using ExamSystem.Controllers.Base;
+using ExamSystem.DTOs.GroupDtos;
 using ExamSystem.Enums;
 using ExamSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +11,7 @@ namespace ExamSystem.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class GroupController(IGroupService _groupService) : ControllerBase
+public class GroupController(IGroupService _groupService) : ApiControllerBase
 {
     [HttpGet]
     [Authorize(Roles = "Admin,Teacher")]
@@ -26,11 +27,7 @@ public class GroupController(IGroupService _groupService) : ControllerBase
     {
         var result = await _groupService.GetByIdAsync(id);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok(result.Data);
     }
@@ -41,7 +38,7 @@ public class GroupController(IGroupService _groupService) : ControllerBase
     {
         var result = await _groupService.CreateAsync(dto);
         if (!result.IsSuccess)
-            return BadRequest(result.Error!.Description);
+            return HandleFailure(result);
 
         return Ok(result.Data);
     }
@@ -52,11 +49,7 @@ public class GroupController(IGroupService _groupService) : ControllerBase
     {
         var result = await _groupService.UpdateAsync(id, dto);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok(result.Data);
     }
@@ -67,12 +60,53 @@ public class GroupController(IGroupService _groupService) : ControllerBase
     {
         var result = await _groupService.DeleteAsync(id);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return NoContent();
     }
+
+    [HttpPut("{groupId}/add-student/{studentId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> AddStudent(int groupId, int studentId)
+    {
+        var result = await _groupService.AddStudentAsync(groupId, studentId);
+        if (!result.IsSuccess)
+            return HandleFailure(result);
+
+        return Ok("Tələbə qrupa uğurla əlavə edildi.");
+    }
+
+    [HttpPut("{groupId}/remove-student/{studentId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> RemoveStudent(int groupId, int studentId)
+    {
+        var result = await _groupService.RemoveStudentAsync(groupId, studentId);
+        if (!result.IsSuccess)
+            return HandleFailure(result);
+
+        return Ok("Tələbə qrupdan uğurla çıxarıldı.");
+    }
+
+    [HttpPut("{groupId}/add-teacher/{teacherId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> AddTeacher(int groupId, int teacherId)
+    {
+        var result = await _groupService.AddTeacherAsync(groupId, teacherId);
+        if (!result.IsSuccess)
+            return HandleFailure(result);
+
+        return Ok("Müəllim qrupa uğurla əlavə edildi.");
+    }
+
+    [HttpPut("{groupId}/remove-teacher/{teacherId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> RemoveTeacher(int groupId, int teacherId)
+    {
+        var result = await _groupService.RemoveTeacherAsync(groupId, teacherId);
+        if (!result.IsSuccess)
+            return HandleFailure(result);
+
+        return Ok("Müəllim qrupdan uğurla çıxarıldı.");
+    }
 }
+

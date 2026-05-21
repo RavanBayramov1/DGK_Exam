@@ -1,4 +1,5 @@
-﻿using ExamSystem.DTOs.ResultDtos;
+﻿using ExamSystem.Controllers.Base;
+using ExamSystem.DTOs.ResultDtos;
 using ExamSystem.Enums;
 using ExamSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +11,7 @@ namespace ExamSystem.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class ResultController(IResultService _resultService) : ControllerBase
+public class ResultController(IResultService _resultService) : ApiControllerBase
 {
     [HttpGet]
     [Authorize(Roles = "Admin,Teacher")]
@@ -26,11 +27,7 @@ public class ResultController(IResultService _resultService) : ControllerBase
     {
         var result = await _resultService.GetByIdAsync(id);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok(result.Data);
     }
@@ -57,11 +54,7 @@ public class ResultController(IResultService _resultService) : ControllerBase
     {
         var result = await _resultService.UpdateAsync(id, dto);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok("Nəticə uğurla yeniləndi.");
     }
@@ -72,11 +65,7 @@ public class ResultController(IResultService _resultService) : ControllerBase
     {
         var result = await _resultService.DeleteAsync(id);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return NoContent();
     }

@@ -1,4 +1,5 @@
-﻿using ExamSystem.DTOs.AuthDtos;
+﻿using ExamSystem.Controllers.Base;
+using ExamSystem.DTOs.AuthDtos;
 using ExamSystem.Enums;
 using ExamSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +11,7 @@ namespace ExamSystem.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class UserController(IUserService _userService) : ControllerBase
+public class UserController(IUserService _userService) : ApiControllerBase
 {
     [HttpGet]
     [Authorize(Roles = "Admin")]
@@ -26,11 +27,7 @@ public class UserController(IUserService _userService) : ControllerBase
     {
         var result = await _userService.GetByIdAsync(id);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok(result.Data);
     }
@@ -41,11 +38,7 @@ public class UserController(IUserService _userService) : ControllerBase
     {
         var result = await _userService.DeleteAsync(id);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return NoContent();
     }
@@ -56,12 +49,7 @@ public class UserController(IUserService _userService) : ControllerBase
     {
         var result = await _userService.AssignRoleAsync(id, dto);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                ErrorType.Validation => BadRequest(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok("Rol uğurla təyin edildi.");
     }
@@ -72,11 +60,7 @@ public class UserController(IUserService _userService) : ControllerBase
     {
         var result = await _userService.ResetPasswordAsync(id, dto);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok("Şifrə uğurla yeniləndi.");
     }

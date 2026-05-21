@@ -11,7 +11,7 @@ namespace ExamSystem.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class ExamController(IExamService _examService) : ControllerBase
+public class ExamController(IExamService _examService) : ApiControllerBase
 {
     [HttpGet]
     [Authorize(Roles = "Admin,Teacher")]
@@ -27,11 +27,7 @@ public class ExamController(IExamService _examService) : ControllerBase
     {
         var result = await _examService.GetByIdAsync(id);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok(result.Data);
     }
@@ -43,7 +39,7 @@ public class ExamController(IExamService _examService) : ControllerBase
         var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _examService.CreateAsync(dto, teacherId);
         if (!result.IsSuccess)
-            return BadRequest(result.Error!.Description);
+            return HandleFailure(result);
 
         return Ok("İmtahan uğurla yaradıldı.");
     }
@@ -55,13 +51,7 @@ public class ExamController(IExamService _examService) : ControllerBase
         var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _examService.UpdateAsync(id, dto, teacherId);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                ErrorType.Unauthorized => Unauthorized(result.Error.Description),
-                ErrorType.Validation => BadRequest(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok("İmtahan uğurla yeniləndi.");
     }
@@ -73,12 +63,7 @@ public class ExamController(IExamService _examService) : ControllerBase
         var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _examService.DeleteAsync(id, teacherId);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                ErrorType.Unauthorized => Unauthorized(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return NoContent();
     }
@@ -90,13 +75,7 @@ public class ExamController(IExamService _examService) : ControllerBase
         var studentId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _examService.StartExamAsync(examId, studentId);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                ErrorType.Conflict => Conflict(result.Error.Description),
-                ErrorType.Validation => BadRequest(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok(result.Data);
     }
@@ -107,15 +86,11 @@ public class ExamController(IExamService _examService) : ControllerBase
     {
         var result = await _examService.SubmitExamAsync(dto);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                ErrorType.Conflict => Conflict(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok("İmtahan uğurla təhvil verildi.");
     }
+
     [HttpPost("{examId}/questions/{questionId}")]
     [Authorize(Roles = "Admin,Teacher")]
     public async Task<IActionResult> AddQuestion(int examId, int questionId, [FromQuery] decimal points)
@@ -123,14 +98,7 @@ public class ExamController(IExamService _examService) : ControllerBase
         var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _examService.AddQuestionToExamAsync(examId, questionId, points, teacherId);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                ErrorType.Unauthorized => Unauthorized(result.Error.Description),
-                ErrorType.Conflict => Conflict(result.Error.Description),
-                ErrorType.Validation => BadRequest(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok("Sual imtahana uğurla əlavə edildi.");
     }
@@ -142,13 +110,7 @@ public class ExamController(IExamService _examService) : ControllerBase
         var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _examService.RemoveQuestionFromExamAsync(examId, questionId, teacherId);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                ErrorType.Unauthorized => Unauthorized(result.Error.Description),
-                ErrorType.Validation => BadRequest(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return NoContent();
     }

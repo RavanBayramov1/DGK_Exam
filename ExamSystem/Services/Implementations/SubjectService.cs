@@ -19,7 +19,7 @@ public class SubjectService(ISubjectRepository _subjectRepo) : ISubjectService
     {
         var subject = await _subjectRepo.GetByIdAsync(id);
         if (subject is null)
-            return Error.NotFound("Fənn tapılmadı.");
+            return ErrorMessages.Subject.NotFound;
 
         return ServiceResult<SubjectResponseDto>.Success(subject);
     }
@@ -37,7 +37,7 @@ public class SubjectService(ISubjectRepository _subjectRepo) : ISubjectService
     {
         var subject = await _subjectRepo.GetByIdAsync(id);
         if (subject is null)
-            return Error.NotFound("Fənn tapılmadı.");
+            return ErrorMessages.Subject.NotFound;
 
         subject.Name = dto.Name;
 
@@ -51,7 +51,7 @@ public class SubjectService(ISubjectRepository _subjectRepo) : ISubjectService
     {
         var subject = await _subjectRepo.GetByIdAsync(id);
         if (subject is null)
-            return Error.NotFound("Fənn tapılmadı.");
+            return ErrorMessages.Subject.NotFound;
 
         _subjectRepo.SoftDelete(subject);
         await _subjectRepo.SaveChangesAsync();

@@ -47,6 +47,7 @@ public static class ServiceExtensions
     public static IServiceCollection AddBackgroundServices(this IServiceCollection services)
     {
         services.AddHostedService<ExamStatusBackgroundService>();
+        services.AddHostedService<ExamTimerService>();
         return services;
     }
 
@@ -101,4 +102,6 @@ public static class ServiceExtensions
         });
         return services;
     }
+
+
 }

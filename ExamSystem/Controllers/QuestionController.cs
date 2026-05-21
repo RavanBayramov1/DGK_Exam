@@ -12,7 +12,7 @@ namespace ExamSystem.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class QuestionController(IQuestionService _questionService) : ControllerBase
+public class QuestionController(IQuestionService _questionService) : ApiControllerBase
 {
     [HttpGet]
     [Authorize(Roles = "Admin,Teacher")]
@@ -28,11 +28,7 @@ public class QuestionController(IQuestionService _questionService) : ControllerB
     {
         var result = await _questionService.GetByIdAsync(id);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok(result.Data);
     }
@@ -52,7 +48,7 @@ public class QuestionController(IQuestionService _questionService) : ControllerB
         var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _questionService.CreateAsync(dto, teacherId);
         if (!result.IsSuccess)
-            return BadRequest(result.Error!.Description);
+            return HandleFailure(result);
 
         return Ok(result.Data);
     }
@@ -64,12 +60,7 @@ public class QuestionController(IQuestionService _questionService) : ControllerB
         var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _questionService.UpdateAsync(id, dto, teacherId);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                ErrorType.Unauthorized => Unauthorized(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return Ok(result.Data);
     }
@@ -81,12 +72,7 @@ public class QuestionController(IQuestionService _questionService) : ControllerB
         var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _questionService.DeleteAsync(id, teacherId);
         if (!result.IsSuccess)
-            return result.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(result.Error.Description),
-                ErrorType.Unauthorized => Unauthorized(result.Error.Description),
-                _ => BadRequest(result.Error.Description)
-            };
+            return HandleFailure(result);
 
         return NoContent();
     }

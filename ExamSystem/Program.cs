@@ -1,6 +1,7 @@
 ﻿
 using ExamSystem.Data;
 using ExamSystem.Extensions;
+using ExamSystem.Hubs;
 using ExamSystem.Middlewares;
 using ExamSystem.Repositories.Implemantations;
 using ExamSystem.Repositories.Interfaces;
@@ -36,8 +37,11 @@ public class Program
         builder.Services.AddJwt(builder.Configuration);
 
         // Swagger
-        builder.Services.AddSwagger(); 
+        builder.Services.AddSwagger();
 
+
+        //SignalR
+        builder.Services.AddSignalR();
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
@@ -56,6 +60,7 @@ public class Program
         app.UseAuthentication();
         app.UseMiddleware<TokenBlacklistMiddleware>();
         app.UseAuthorization();
+        app.MapHub<ExamHub>("/hubs/exam");
 
         using (var scope = app.Services.CreateScope())
         {

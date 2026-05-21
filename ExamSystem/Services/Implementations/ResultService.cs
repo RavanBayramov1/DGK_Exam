@@ -18,7 +18,7 @@ public class ResultService(IResultRepository _resultRepo) : IResultService
     {
         var result = await _resultRepo.GetByIdAsync(id);
         if (result is null)
-            return Error.NotFound("Nəticə tapılmadı.");
+            return ErrorMessages.Result.NotFound;
 
         return ServiceResult<ResultResponseDto>.Success(result);
     }
@@ -41,7 +41,7 @@ public class ResultService(IResultRepository _resultRepo) : IResultService
     {
         var result = await _resultRepo.GetByIdAsync(id);
         if (result is null)
-            return Error.NotFound("Nəticə tapılmadı.");
+            return ErrorMessages.Result.NotFound;
 
         result.FinalScore = dto.FinalScore;
         result.IsEditedByTeacher = true;
@@ -71,7 +71,7 @@ public class ResultService(IResultRepository _resultRepo) : IResultService
     {
         var result = await _resultRepo.GetByIdAsync(id);
         if (result is null)
-            return Error.NotFound("Nəticə tapılmadı.");
+            return ErrorMessages.Result.NotFound;
 
         _resultRepo.SoftDelete(result);
         await _resultRepo.SaveChangesAsync();

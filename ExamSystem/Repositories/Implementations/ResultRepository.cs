@@ -26,4 +26,10 @@ public class ResultRepository : GenericRepository<ExamResult>, IResultRepository
             .Where(r => r.ExamId == examId)
             .Include(r => r.Student)
             .ToListAsync();
+
+    public async Task<List<ExamResult>> GetActiveResultsAsync() =>
+    await _dbSet
+        .Where(r => r.StartedAt != null && r.SubmittedAt == null)
+        .Include(r => r.Exam)
+        .ToListAsync();
 }

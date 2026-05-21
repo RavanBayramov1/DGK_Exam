@@ -19,7 +19,7 @@ public class QuestionService(IQuestionRepository _questionRepo) : IQuestionServi
     {
         var question = await _questionRepo.GetByIdAsync(id);
         if (question is null)
-            return Error.NotFound("Sual tapılmadı.");
+            return ErrorMessages.Question.NotFound;
 
         return ServiceResult<QuestionResponseDto>.Success(question);
     }
@@ -46,10 +46,10 @@ public class QuestionService(IQuestionRepository _questionRepo) : IQuestionServi
     {
         var question = await _questionRepo.GetByIdAsync(id);
         if (question is null)
-            return Error.NotFound("Sual tapılmadı.");
+            return ErrorMessages.Question.NotFound;
 
         if (question.TeacherId != teacherId)
-            return Error.Unauthorized("Bu sualı dəyişməyə icazəniz yoxdur.");
+            return ErrorMessages.Question.Unauthorized;
 
         question.QuestionText = dto.QuestionText;
         question.Type = dto.Type;
@@ -68,10 +68,10 @@ public class QuestionService(IQuestionRepository _questionRepo) : IQuestionServi
     {
         var question = await _questionRepo.GetByIdAsync(id);
         if (question is null)
-            return Error.NotFound("Sual tapılmadı.");
+            return ErrorMessages.Question.NotFound;
 
         if (question.TeacherId != teacherId)
-            return Error.Unauthorized("Bu sualı silməyə icazəniz yoxdur.");
+            return ErrorMessages.Question.Unauthorized;
 
         _questionRepo.SoftDelete(question);
         await _questionRepo.SaveChangesAsync();

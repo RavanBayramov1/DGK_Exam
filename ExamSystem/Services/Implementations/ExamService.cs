@@ -21,7 +21,7 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
     {
         var exam = await _examRepo.GetWithDetailsAsync(id);
         if (exam is null)
-            return Error.NotFound("İmtahan tapılmadı.");
+            return ErrorMessages.Exam.NotFound;
 
         return ServiceResult<ExamResponseDto>.Success(exam);
     }
@@ -41,13 +41,13 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
     {
         var exam = await _examRepo.GetByIdAsync(id);
         if (exam is null)
-            return Error.NotFound("İmtahan tapılmadı.");
+            return ErrorMessages.Exam.NotFound;
 
         if (exam.TeacherId != teacherId)
-            return Error.Unauthorized("Bu imtahanı dəyişməyə icazəniz yoxdur.");
+            return ErrorMessages.Exam.Unauthorized;
 
         if (exam.Status != ExamStatus.Draft)
-            return Error.Validation("Yalnız Draft statusunda olan imtahan dəyişdirilə bilər.");
+            return ErrorMessages.Exam.NotDraft;
 
         exam.Title = dto.Title;
         exam.StartTime = dto.StartTime;
@@ -68,10 +68,10 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
     {
         var exam = await _examRepo.GetByIdAsync(id);
         if (exam is null)
-            return Error.NotFound("İmtahan tapılmadı.");
+            return ErrorMessages.Exam.NotFound;
 
         if (exam.TeacherId != teacherId)
-            return Error.Unauthorized("Bu imtahanı silməyə icazəniz yoxdur.");
+            return ErrorMessages.Exam.Unauthorized;
 
         _examRepo.SoftDelete(exam);
         await _examRepo.SaveChangesAsync();
@@ -83,14 +83,14 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
     {
         var exam = await _examRepo.GetWithDetailsAsync(examId);
         if (exam is null)
-            return Error.NotFound("İmtahan tapılmadı.");
+            return ErrorMessages.Exam.NotFound;
 
         if (exam.Status != ExamStatus.Active)
-            return Error.Validation("İmtahan aktiv deyil.");
+            return ErrorMessages.Exam.NotActive;
 
         var existingResult = await _resultRepo.GetByExamAndStudentAsync(examId, studentId);
         if (existingResult is not null)
-            return Error.Conflict("Siz bu imtahana artıq başlamısınız.");
+            return ErrorMessages.Exam.AlreadyStarted;
 
         var result = new ExamResult
         {
@@ -122,12 +122,14 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
     {
         var result = await _resultRepo.GetByIdAsync(dto.ResultId);
         if (result is null)
-            return Error.NotFound("Nəticə tapılmadı.");
+            return ErrorMessages.Exam.NotFound;
 
         if (result.SubmittedAt is not null)
-            return Error.Conflict("İmtahan artıq təhvil verilib.");
+            return ErrorMessages.Exam.AlreadySubmitted;
 
         var exam = await _examRepo.GetWithDetailsAsync(result.ExamId);
+        if (exam is null)
+            return ErrorMessages.Exam.NotFound;
 
         var givenAnswers = new List<StudentAnswerData>();
         decimal totalScore = 0;
@@ -161,7 +163,7 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
         result.OriginalScore = totalScore;
         result.FinalScore = totalScore;
         result.SubmittedAt = DateTime.UtcNow;
-        result.IsAutoSubmitted = false;
+        result.IsAutoSubmitted = dto.Answers.Count == 0;
 
         _resultRepo.Update(result);
         await _resultRepo.SaveChangesAsync();
@@ -172,17 +174,17 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
     {
         var exam = await _examRepo.GetByIdAsync(examId);
         if (exam is null)
-            return Error.NotFound("İmtahan tapılmadı.");
+            return ErrorMessages.Exam.NotFound;
 
         if (exam.TeacherId != teacherId)
-            return Error.Unauthorized("Bu imtahana sual əlavə etməyə icazəniz yoxdur.");
+            return ErrorMessages.Exam.Unauthorized;
 
         if (exam.Status != ExamStatus.Draft)
-            return Error.Validation("Yalnız Draft statusunda olan imtahana sual əlavə edilə bilər.");
+            return ErrorMessages.Exam.NotDraft;
 
         var existing = await _examQuestionRepo.GetByExamIdAsync(examId);
         if (existing.Any(eq => eq.QuestionId == questionId))
-            return Error.Conflict("Bu sual artıq imtahana əlavə edilib.");
+            return ErrorMessages.Exam.QuestionAlreadyExists;
 
         var examQuestion = new ExamQuestion
         {
@@ -202,18 +204,18 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
     {
         var exam = await _examRepo.GetByIdAsync(examId);
         if (exam is null)
-            return Error.NotFound("İmtahan tapılmadı.");
+            return ErrorMessages.Exam.NotFound;
 
         if (exam.TeacherId != teacherId)
-            return Error.Unauthorized("Bu imtahandan sual silməyə icazəniz yoxdur.");
+            return ErrorMessages.Exam.Unauthorized;
 
         if (exam.Status != ExamStatus.Draft)
-            return Error.Validation("Yalnız Draft statusunda olan imtahandan sual silinə bilər.");
+            return ErrorMessages.Exam.NotDraft;
 
         var existing = await _examQuestionRepo.GetByExamIdAsync(examId);
         var examQuestion = existing.FirstOrDefault(eq => eq.QuestionId == questionId);
         if (examQuestion is null)
-            return Error.NotFound("Bu sual imtahanda mövcud deyil.");
+            return ErrorMessages.Exam.QuestionNotFound;
 
         _examQuestionRepo.SoftDelete(examQuestion);
         await _examQuestionRepo.SaveChangesAsync();
