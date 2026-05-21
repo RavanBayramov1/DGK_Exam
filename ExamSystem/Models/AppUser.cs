@@ -9,6 +9,8 @@ public class AppUser : BaseEntity
     public string FullName { get; set; }
     public string Email { get; set; }
     public string PasswordHash { get; set; }
+    public string? PasswordResetToken { get; set; } 
+    public DateTime? ResetTokenExpireTime { get; set; } 
     public UserRole Role { get; set; }
 
     // --- ŞAGİRD ÜÇÜN ---

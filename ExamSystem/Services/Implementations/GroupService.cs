@@ -28,6 +28,14 @@ public class GroupService(IGroupRepository _groupRepo,IUserRepository _userRepo)
 
     public async Task<ServiceResult<GroupResponseDto>> CreateAsync(CreateGroupDto dto)
     {
+
+        bool isGroupExists = await _groupRepo.AnyAsync(g => g.Name.ToLower() == dto.Name.ToLower().Trim());
+
+        if (isGroupExists)
+        {
+            // Result Pattern-ə uyğun olaraq xəta mesajını geri döndürürük
+            return ServiceResult<GroupResponseDto>.Failure(ErrorMessages.Group.AlreadyExists);
+        }
         Group group = dto;
         await _groupRepo.AddAsync(group);
         await _groupRepo.SaveChangesAsync();

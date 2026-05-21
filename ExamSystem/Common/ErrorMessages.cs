@@ -14,6 +14,7 @@ public static class ErrorMessages
         public static Error NotTeacher => new("User.NotTeacher", ErrorType.Validation, "İstifadəçi Teacher deyil.");
         public static Error AlreadyInGroup => new("User.AlreadyInGroup", ErrorType.Conflict, "İstifadəçi artıq bu qrupdadır.");
         public static Error NotInGroup => new("User.NotInGroup", ErrorType.NotFound, "İstifadəçi bu qrupda deyil.");
+        public static Error WrongToken => new("User.WrongToken", ErrorType.Invalid, "Token səhvdir və ya vaxtı bitib!");
     }
 
     public static class Exam
@@ -37,11 +38,14 @@ public static class ErrorMessages
     public static class Group
     {
         public static Error NotFound => new("Group.NotFound", ErrorType.NotFound, "Qrup tapılmadı.");
+        public static Error AlreadyExists => new("Group.AlreadyExists", ErrorType.Conflict, "Bu adda qrup artıq mövcuddur.");
+
     }
 
     public static class Subject
     {
         public static Error NotFound => new("Subject.NotFound", ErrorType.NotFound, "Fənn tapılmadı.");
+        public static Error AlreadyExists =>  new("Subject.AlreadyExists", ErrorType.Conflict, "Bu adda fənn artıq mövcuddur.");
     }
 
     public static class Result

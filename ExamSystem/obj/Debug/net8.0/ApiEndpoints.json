@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "ExamSystem.Controllers.AuthController",
+    "Method": "ForgetPassword",
+    "RelativePath": "api/Auth/forget-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ExamSystem.DTOs.AuthDtos.ForgetPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
     "HttpMethod": "POST",
@@ -36,6 +52,22 @@
       {
         "Name": "dto",
         "Type": "ExamSystem.DTOs.AuthDtos.RegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ExamSystem.Controllers.AuthController",
+    "Method": "ResetPasswordWithToken",
+    "RelativePath": "api/Auth/reset-password-with-token",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ExamSystem.DTOs.AuthDtos.ResetPasswordWithTokenDto",
         "IsRequired": true
       }
     ],

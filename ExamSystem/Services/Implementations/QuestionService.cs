@@ -35,7 +35,7 @@ public class QuestionService(IQuestionRepository _questionRepo) : IQuestionServi
     {
         Question question = dto;
         question.TeacherId = teacherId;
-
+        
         await _questionRepo.AddAsync(question);
         await _questionRepo.SaveChangesAsync();
 

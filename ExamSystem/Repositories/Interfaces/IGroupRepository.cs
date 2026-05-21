@@ -1,4 +1,5 @@
 ﻿using ExamSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExamSystem.Repositories.Interfaces;
 

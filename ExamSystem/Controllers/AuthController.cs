@@ -45,5 +45,26 @@ public class AuthController(IAuthService _authService) : ApiControllerBase
 
         return Ok("Çıxış uğurla tamamlandı.");
     }
+    [HttpPost("forget-password")]
+    public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordDto dto)
+    {
+        var result = await _authService.ForgetPasswordAsync(dto.Email);
+
+        if (!result.IsSuccess)
+            return HandleFailure(result);
+
+        return Ok(result);
+    }
+
+    [HttpPost("reset-password-with-token")]
+    public async Task<IActionResult> ResetPasswordWithToken([FromBody] ResetPasswordWithTokenDto dto)
+    {
+        var result = await _authService.ResetPasswordWithTokenAsync(dto);
+
+        if (!result.IsSuccess)
+            return HandleFailure(result);
+
+        return Ok(result);
+    }
 }
 

@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace ExamSystem.Services.Implementations;
 
-public class AuthService(IUserRepository _userRepo,IJwtService _jwtService,ITokenBlacklistService _blacklistService) : IAuthService
+public class AuthService(IEmailService _emailService,IUserRepository _userRepo,IJwtService _jwtService,ITokenBlacklistService _blacklistService) : IAuthService
 {
     public async Task<ServiceResult<AuthResponseDto>> LoginAsync(LoginDto dto)
     {
@@ -46,6 +46,52 @@ public class AuthService(IUserRepository _userRepo,IJwtService _jwtService,IToke
         var expiry = jwtToken.ValidTo - DateTime.UtcNow;
 
         await _blacklistService.AddToBlacklistAsync(token, expiry);
+        return ServiceResult.Success();
+    }
+
+    public async Task<ServiceResult> ForgetPasswordAsync(string email)
+    {
+        var users = await _userRepo.GetAllAsync();
+        var user = users.FirstOrDefault(u => u.Email.ToLower() == email.ToLower().Trim() && !u.IsDeleted);
+
+        if (user is null)
+            return ErrorMessages.User.NotFound;
+
+        user.PasswordResetToken = Guid.NewGuid().ToString();
+        user.ResetTokenExpireTime = DateTime.UtcNow.AddMinutes(15);
+
+        _userRepo.Update(user);
+        await _userRepo.SaveChangesAsync();
+
+        string resetLink = $"https://examsystem.com/reset-password?email={user.Email}&token={user.PasswordResetToken}";
+
+        string emailBody = $"Parolunuzu sıfırlamaq üçün bu linkə klikləyin: <a href='{resetLink}'>Parolu Sıfırla</a>";
+
+        await _emailService.SendEmailAsync(user.Email, "Parolun Sıfırlanması", emailBody);
+
+        return ServiceResult.Success();
+    }
+    public async Task<ServiceResult> ResetPasswordWithTokenAsync(ResetPasswordWithTokenDto dto)
+    {
+        var users = await _userRepo.GetAllAsync();
+        var user = users.FirstOrDefault(u => u.Email.ToLower() == dto.Email.ToLower().Trim() && !u.IsDeleted);
+
+        if (user is null)
+            return ErrorMessages.User.NotFound;
+
+        if (user.PasswordResetToken != dto.Token || user.ResetTokenExpireTime < DateTime.UtcNow)
+        {
+            return ErrorMessages.User.WrongToken;
+        }
+
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+
+        user.PasswordResetToken = null;
+        user.ResetTokenExpireTime = null;
+
+        _userRepo.Update(user);
+        await _userRepo.SaveChangesAsync();
+
         return ServiceResult.Success();
     }
 }

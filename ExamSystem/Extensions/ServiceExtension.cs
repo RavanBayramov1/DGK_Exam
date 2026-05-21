@@ -29,14 +29,16 @@ public static class ServiceExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IExamService, ExamService>();
         services.AddScoped<IQuestionService, QuestionService>();
+        services.AddScoped<IGroupService, GroupService>();
         services.AddScoped<IResultService, ResultService>();
         services.AddScoped<ISubjectService, SubjectService>();
         services.AddScoped<ITokenBlacklistService, TokenBlacklistService>();
         return services;
     }
-
+    
     public static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration config)
     {
         services.AddSingleton<IConnectionMultiplexer>(

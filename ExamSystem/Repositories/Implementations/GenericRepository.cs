@@ -2,6 +2,7 @@
 using ExamSystem.Models.Common;
 using ExamSystem.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace ExamSystem.Repositories.Implemantations;
 
@@ -30,4 +31,9 @@ public class GenericRepository<T>(AddDbContext _context) : IGenericRepository<T>
 
     public async Task<bool> SaveChangesAsync() =>
         await _context.SaveChangesAsync() > 0;
+
+    public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await _dbSet.AnyAsync(predicate);
+    }
 }

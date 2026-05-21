@@ -256,9 +256,9 @@ C:\Users\revan.bayramov\Desktop\DGK_Exam\ExamSystem\obj\Debug\net8.0\refint\Exam
 C:\Users\revan.bayramov\Desktop\DGK_Exam\ExamSystem\obj\Debug\net8.0\ExamSystem.pdb
 C:\Users\revan.bayramov\Desktop\DGK_Exam\ExamSystem\obj\Debug\net8.0\ExamSystem.genruntimeconfig.cache
 C:\Users\revan.bayramov\Desktop\DGK_Exam\ExamSystem\obj\Debug\net8.0\ref\ExamSystem.dll
-C:\Users\revan.bayramov\Desktop\DGK_Exam\ExamSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\revan.bayramov\Desktop\DGK_Exam\ExamSystem\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
 C:\Users\revan.bayramov\Desktop\DGK_Exam\ExamSystem\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
 C:\Users\revan.bayramov\Desktop\DGK_Exam\ExamSystem\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
 C:\Users\revan.bayramov\Desktop\DGK_Exam\ExamSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\revan.bayramov\Desktop\DGK_Exam\ExamSystem\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\revan.bayramov\Desktop\DGK_Exam\ExamSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

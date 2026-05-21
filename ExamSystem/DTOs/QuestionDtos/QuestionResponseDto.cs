@@ -14,14 +14,19 @@ public class QuestionResponseDto
     public List<string> CorrectAnswers { get; set; }
     public SubjectResponseDto Subject { get; set; }
 
-    public static implicit operator QuestionResponseDto(Question question) => new()
+    public static implicit operator QuestionResponseDto(Question question)
     {
-        Id = question.Id,
-        QuestionText = question.QuestionText,
-        Type = question.Type,
-        DefaultPoints = question.DefaultPoints,
-        Options = question.Options,
-        CorrectAnswers = question.CorrectAnswers,
-        Subject = question.Subject  // SubjectResponseDto implicit işləyir
-    };
+        if (question == null) return question;
+
+        return new QuestionResponseDto
+        {
+            Id = question.Id,
+            QuestionText = question.QuestionText,
+            Type = question.Type,
+            DefaultPoints = question.DefaultPoints,
+            Options = question.Options,
+            CorrectAnswers = question.CorrectAnswers,
+            Subject = question.SubjectId != null ? (SubjectResponseDto)question.Subject : null
+        };
+    }
 }

@@ -79,6 +79,68 @@
         }
       }
     },
+    "/api/Auth/forget-password": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgetPasswordDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgetPasswordDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Auth/reset-password-with-token": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordWithTokenDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordWithTokenDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordWithTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Exam": {
       "get": {
         "tags": [
@@ -1259,6 +1321,20 @@
         },
         "additionalProperties": false
       },
+      "ForgetPasswordDto": {
+        "required": [
+          "email"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginDto": {
         "required": [
           "password"
@@ -1316,6 +1392,30 @@
         ],
         "type": "object",
         "properties": {
+          "newPassword": {
+            "minLength": 8,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResetPasswordWithTokenDto": {
+        "required": [
+          "email",
+          "newPassword",
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "token": {
+            "minLength": 1,
+            "type": "string"
+          },
           "newPassword": {
             "minLength": 8,
             "type": "string"
