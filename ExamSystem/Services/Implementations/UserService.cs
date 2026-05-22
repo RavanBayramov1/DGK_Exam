@@ -1,9 +1,7 @@
 ﻿using ExamSystem.Common;
 using ExamSystem.DTOs.AuthDtos;
-using ExamSystem.Enums;
 using ExamSystem.Repositories.Interfaces;
 using ExamSystem.Services.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ExamSystem.Services.Implementations;
 

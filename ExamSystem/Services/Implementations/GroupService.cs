@@ -4,7 +4,6 @@ using ExamSystem.Enums;
 using ExamSystem.Models;
 using ExamSystem.Repositories.Interfaces;
 using ExamSystem.Services.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ExamSystem.Services.Implementations;
 

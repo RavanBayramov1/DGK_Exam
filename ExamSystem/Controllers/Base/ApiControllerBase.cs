@@ -22,4 +22,20 @@ public class ApiControllerBase : ControllerBase
             _ => StatusCode(500, result.Error.Description)
         };
     }
+    protected IActionResult HandleFailure<T>(ServiceResult<T> result)
+    {
+        if (result.Error == null)
+            return StatusCode(500, "Naməlum xəta baş verdi!");
+
+
+
+        return result.Error.Type switch
+        {
+            ErrorType.NotFound => NotFound(result.Error.Description),
+            ErrorType.Validation => BadRequest(result.Error.Description),
+            ErrorType.Unauthorized => Unauthorized(result.Error.Description),
+            ErrorType.Conflict => Conflict(result.Error.Description),
+            _ => StatusCode(500, result.Error.Description)
+        };
+    }
 }

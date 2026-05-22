@@ -9,11 +9,15 @@ public class GroupResponseDto
     public int StudentCount { get; set; }
     public int TeacherCount { get; set; }
 
-    public static implicit operator GroupResponseDto(Group group) => new()
+    public static implicit operator GroupResponseDto(Group group)
     {
-        Id = group.Id,
-        Name = group.Name,
-        StudentCount = group.Students?.Count ?? 0,
-        TeacherCount = group.Teachers?.Count ?? 0
-    };
+        if (group == null) return null; // ← əlavə edildi
+        return new GroupResponseDto
+        {
+            Id = group.Id,
+            Name = group.Name,
+            StudentCount = group.Students?.Count ?? 0,
+            TeacherCount = group.Teachers?.Count ?? 0
+        };
+    }
 }

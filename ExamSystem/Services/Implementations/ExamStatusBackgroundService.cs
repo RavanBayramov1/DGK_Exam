@@ -15,7 +15,7 @@ public class ExamStatusBackgroundService(IServiceScopeFactory _scopeFactory) : B
             var examRepo = scope.ServiceProvider.GetRequiredService<IExamRepository>();
 
             var now = DateTime.UtcNow;
-            var exams = await examRepo.GetAllAsync();
+            var exams = await examRepo.GetActiveAndScheduledAsync();
 
             foreach (var exam in exams)
             {

@@ -9,14 +9,14 @@ public class ResultService(IResultRepository _resultRepo) : IResultService
 {
     public async Task<ServiceResult<List<ResultResponseDto>>> GetAllAsync()
     {
-        var results = await _resultRepo.GetAllAsync();
+        var results = await _resultRepo.GetAllWithDetailsAsync();
         var result = results.Select(r => (ResultResponseDto)r).ToList();
         return ServiceResult<List<ResultResponseDto>>.Success(result);
     }
 
     public async Task<ServiceResult<ResultResponseDto>> GetByIdAsync(int id)
     {
-        var result = await _resultRepo.GetByIdAsync(id);
+        var result = await _resultRepo.GetByIdWithDetailsAsync(id);
         if (result is null)
             return ErrorMessages.Result.NotFound;
 

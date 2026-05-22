@@ -25,4 +25,13 @@ public class QuestionRepository : GenericRepository<Question>, IQuestionReposito
         .Where(q => q.ExamQuestions.Any(eq => eq.ExamId == examId))
         .Include(q => q.Subject)
         .ToListAsync();
+    public async Task<List<Question>> GetAllWithDetailAsync() =>
+    await _dbSet
+        .Include(q => q.Subject)
+        .ToListAsync();
+
+    public async Task<Question?> GetByIdWithDetailAsync(int id) =>
+        await _dbSet
+            .Include(q => q.Subject)
+            .FirstOrDefaultAsync(q => q.Id == id);
 }

@@ -12,7 +12,7 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
 {
     public async Task<ServiceResult<List<ExamResponseDto>>> GetAllAsync()
     {
-        var exams = await _examRepo.GetAllAsync();
+        var exams = await _examRepo.GetAllWithDetailsAsync();
         var result = exams.Select(e => (ExamResponseDto)e).ToList();
         return ServiceResult<List<ExamResponseDto>>.Success(result);
     }
@@ -111,18 +111,21 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
         {
             ResultId = result.Id,
             ExamTitle = exam.Title,
-            Duration = exam.DurationMinutes,
+            DurationMinutes = exam.DurationMinutes,
             Questions = questions
         };
 
         return ServiceResult<StartExamDto>.Success(startExamDto);
     }
 
-    public async Task<ServiceResult> SubmitExamAsync(SubmitExamDto dto)
+    public async Task<ServiceResult> SubmitExamAsync(SubmitExamDto dto, int? studentId)
     {
         var result = await _resultRepo.GetByIdAsync(dto.ResultId);
         if (result is null)
             return ErrorMessages.Exam.NotFound;
+
+        if (result.StudentId != studentId)
+            return ErrorMessages.Exam.Unauthorized;
 
         if (result.SubmittedAt is not null)
             return ErrorMessages.Exam.AlreadySubmitted;
@@ -170,6 +173,27 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
 
         return ServiceResult.Success();
     }
+    public async Task<ServiceResult> AutoSubmitExamAsync(int resultId)
+    {
+        var result = await _resultRepo.GetByIdAsync(resultId);
+        if (result is null)
+            return ErrorMessages.Exam.NotFound;
+
+        if (result.SubmittedAt is not null)
+            return ServiceResult.Success();
+
+        result.GivenAnswers = new List<StudentAnswerData>();
+        result.OriginalScore = 0;
+        result.FinalScore = 0;
+        result.SubmittedAt = DateTime.UtcNow;
+        result.IsAutoSubmitted = true;
+
+        _resultRepo.Update(result);
+        await _resultRepo.SaveChangesAsync();
+
+        return ServiceResult.Success();
+    }
+
     public async Task<ServiceResult> AddQuestionToExamAsync(int examId, int questionId, decimal points, int teacherId)
     {
         var exam = await _examRepo.GetByIdAsync(examId);

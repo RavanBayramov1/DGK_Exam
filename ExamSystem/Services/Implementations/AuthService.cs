@@ -51,10 +51,8 @@ public class AuthService(IEmailService _emailService,IUserRepository _userRepo,I
 
     public async Task<ServiceResult> ForgetPasswordAsync(string email)
     {
-        var users = await _userRepo.GetAllAsync();
-        var user = users.FirstOrDefault(u => u.Email.ToLower() == email.ToLower().Trim() && !u.IsDeleted);
-
-        if (user is null)
+        var user = await _userRepo.GetByEmailAsync(email.ToLower().Trim());
+        if (user is null || user.IsDeleted)
             return ErrorMessages.User.NotFound;
 
         user.PasswordResetToken = Guid.NewGuid().ToString();
@@ -73,10 +71,8 @@ public class AuthService(IEmailService _emailService,IUserRepository _userRepo,I
     }
     public async Task<ServiceResult> ResetPasswordWithTokenAsync(ResetPasswordWithTokenDto dto)
     {
-        var users = await _userRepo.GetAllAsync();
-        var user = users.FirstOrDefault(u => u.Email.ToLower() == dto.Email.ToLower().Trim() && !u.IsDeleted);
-
-        if (user is null)
+        var user = await _userRepo.GetByEmailAsync(dto.Email.ToLower().Trim());
+        if (user is null || user.IsDeleted)
             return ErrorMessages.User.NotFound;
 
         if (user.PasswordResetToken != dto.Token || user.ResetTokenExpireTime < DateTime.UtcNow)

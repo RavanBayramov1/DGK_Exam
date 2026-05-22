@@ -6,6 +6,6 @@ public class StartExamDto
 {
     public int ResultId { get; set; }
     public string ExamTitle { get; set; } = string.Empty;
-    public int Duration { get; set; }
-    public List<QuestionResponseDto> Questions { get; set; } = new();   
+    public int DurationMinutes { get; set; }  // ← əvvəl Duration idi
+    public List<QuestionResponseDto> Questions { get; set; } = new();
 }

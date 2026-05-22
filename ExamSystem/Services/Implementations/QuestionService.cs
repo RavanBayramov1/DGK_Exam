@@ -10,14 +10,14 @@ public class QuestionService(IQuestionRepository _questionRepo) : IQuestionServi
 {
     public async Task<ServiceResult<List<QuestionResponseDto>>> GetAllAsync()
     {
-        var questions = await _questionRepo.GetAllAsync();
+        var questions = await _questionRepo.GetAllWithDetailAsync();
         var result = questions.Select(q => (QuestionResponseDto)q).ToList();
         return ServiceResult<List<QuestionResponseDto>>.Success(result);
     }
 
     public async Task<ServiceResult<QuestionResponseDto>> GetByIdAsync(int id)
     {
-        var question = await _questionRepo.GetByIdAsync(id);
+        var question = await _questionRepo.GetByIdWithDetailAsync(id);
         if (question is null)
             return ErrorMessages.Question.NotFound;
 
@@ -44,7 +44,7 @@ public class QuestionService(IQuestionRepository _questionRepo) : IQuestionServi
 
     public async Task<ServiceResult<QuestionResponseDto>> UpdateAsync(int id, UpdateQuestionDto dto, int teacherId)
     {
-        var question = await _questionRepo.GetByIdAsync(id);
+        var question = await _questionRepo.GetByIdWithDetailAsync(id);
         if (question is null)
             return ErrorMessages.Question.NotFound;
 

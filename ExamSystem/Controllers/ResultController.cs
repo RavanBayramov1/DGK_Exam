@@ -4,6 +4,7 @@ using ExamSystem.Enums;
 using ExamSystem.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 
 namespace ExamSystem.Controllers;
@@ -44,6 +45,12 @@ public class ResultController(IResultService _resultService) : ApiControllerBase
     [Authorize(Roles = "Admin,Teacher,Student")]
     public async Task<IActionResult> GetByStudentId(int studentId)
     {
+        var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var currentUserRole = User.FindFirst(ClaimTypes.Role)!.Value;
+
+        if (currentUserRole == "Student" && currentUserId != studentId)
+            return Forbid();
+
         var result = await _resultService.GetByStudentIdAsync(studentId);
         return Ok(result.Data);
     }

@@ -53,7 +53,7 @@ public class AuthController(IAuthService _authService) : ApiControllerBase
         if (!result.IsSuccess)
             return HandleFailure(result);
 
-        return Ok(result);
+        return Ok("Şifrə sıfırlama linki emailinizə göndərildi.");
     }
 
     [HttpPost("reset-password-with-token")]
@@ -64,7 +64,7 @@ public class AuthController(IAuthService _authService) : ApiControllerBase
         if (!result.IsSuccess)
             return HandleFailure(result);
 
-        return Ok(result);
+        return Ok("Şifrəniz uğurla sıfırlandı.");
     }
 }
 

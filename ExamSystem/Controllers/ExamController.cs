@@ -84,7 +84,8 @@ public class ExamController(IExamService _examService) : ApiControllerBase
     [Authorize(Roles = "Student")]
     public async Task<IActionResult> SubmitExam(SubmitExamDto dto)
     {
-        var result = await _examService.SubmitExamAsync(dto);
+        var studentId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = await _examService.SubmitExamAsync(dto, studentId);
         if (!result.IsSuccess)
             return HandleFailure(result);
 

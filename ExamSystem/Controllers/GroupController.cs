@@ -65,7 +65,7 @@ public class GroupController(IGroupService _groupService) : ApiControllerBase
         return NoContent();
     }
 
-    [HttpPut("{groupId}/add-student/{studentId}")]
+    [HttpPost("{groupId}/add-student/{studentId}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddStudent(int groupId, int studentId)
     {
@@ -76,7 +76,7 @@ public class GroupController(IGroupService _groupService) : ApiControllerBase
         return Ok("Tələbə qrupa uğurla əlavə edildi.");
     }
 
-    [HttpPut("{groupId}/remove-student/{studentId}")]
+    [HttpDelete("{groupId}/remove-student/{studentId}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> RemoveStudent(int groupId, int studentId)
     {
@@ -87,7 +87,7 @@ public class GroupController(IGroupService _groupService) : ApiControllerBase
         return Ok("Tələbə qrupdan uğurla çıxarıldı.");
     }
 
-    [HttpPut("{groupId}/add-teacher/{teacherId}")]
+    [HttpPost("{groupId}/add-teacher/{teacherId}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddTeacher(int groupId, int teacherId)
     {
@@ -98,7 +98,7 @@ public class GroupController(IGroupService _groupService) : ApiControllerBase
         return Ok("Müəllim qrupa uğurla əlavə edildi.");
     }
 
-    [HttpPut("{groupId}/remove-teacher/{teacherId}")]
+    [HttpDelete("{groupId}/remove-teacher/{teacherId}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> RemoveTeacher(int groupId, int teacherId)
     {

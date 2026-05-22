@@ -38,4 +38,15 @@ public class ExamRepository : GenericRepository<Exam>, IExamRepository
             .Include(e => e.Group)
             .Include(e => e.Subject)
             .ToListAsync();
+    public async Task<List<Exam>> GetAllWithDetailsAsync() =>
+    await _dbSet
+        .Include(e => e.Group)
+        .Include(e => e.Subject)
+        .Include(e => e.Teacher)
+        .ToListAsync();
+    public async Task<List<Exam>> GetActiveAndScheduledAsync() =>
+    await _dbSet
+        .Where(e => !e.IsDeleted &&
+               (e.Status == ExamStatus.Scheduled || e.Status == ExamStatus.Active))
+        .ToListAsync();
 }

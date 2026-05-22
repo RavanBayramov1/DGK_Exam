@@ -35,11 +35,7 @@ IHubContext<ExamHub> _hubContext) : BackgroundService
                         .SendAsync("TimeUp");
 
 
-                    await examService.SubmitExamAsync(new SubmitExamDto
-                    {
-                        ResultId = result.Id,
-                        Answers = new List<StudentAnswerDto>()
-                    });
+                    await examService.AutoSubmitExamAsync(result.Id);
                 }
                 else
                 {

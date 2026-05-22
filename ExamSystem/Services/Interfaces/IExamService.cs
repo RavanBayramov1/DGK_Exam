@@ -1,5 +1,6 @@
 ﻿using ExamSystem.Common;
 using ExamSystem.DTOs.ExamDtos;
+using ExamSystem.Models;
 
 namespace ExamSystem.Services.Interfaces;
 
@@ -11,7 +12,8 @@ public interface IExamService
     Task<ServiceResult> UpdateAsync(int id, UpdateExamDto dto, int teacherId);
     Task<ServiceResult> DeleteAsync(int id, int teacherId);
     Task<ServiceResult<StartExamDto>> StartExamAsync(int examId, int studentId);
-    Task<ServiceResult> SubmitExamAsync(SubmitExamDto dto);
+    Task<ServiceResult> SubmitExamAsync(SubmitExamDto dto, int studentId);
+    Task<ServiceResult> AutoSubmitExamAsync(int resultId);
     Task<ServiceResult> AddQuestionToExamAsync(int examId, int questionId, decimal points, int teacherId);
     Task<ServiceResult> RemoveQuestionFromExamAsync(int examId, int questionId, int teacherId);
 }

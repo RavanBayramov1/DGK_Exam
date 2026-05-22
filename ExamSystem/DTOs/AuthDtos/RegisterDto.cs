@@ -9,6 +9,7 @@ public class RegisterDto
     [MinLength(8, ErrorMessage = "Ad və Soyad minimum 8 simvol olmalıdır.")]
     public string FullName { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "Email boş ola bilməz.")]
     [EmailAddress(ErrorMessage = "Email formatı yanlışdır.")]
     public string Email { get; set; } = string.Empty;
 

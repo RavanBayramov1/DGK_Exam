@@ -20,24 +20,29 @@ public class ExamResponseDto
     public SubjectResponseDto Subject { get; set; }
     public UserSummaryDto Teacher { get; set; }
 
-    public static implicit operator ExamResponseDto(Exam exam) => new()
+    public static implicit operator ExamResponseDto(Exam exam)
     {
-        Id = exam.Id,
-        Title = exam.Title,
-        StartTime = exam.StartTime,
-        DurationMinutes = exam.DurationMinutes,
-        Status = exam.Status,
-        ShuffleQuestions = exam.ShuffleQuestions,
-        ShuffleOptions = exam.ShuffleOptions,
-        ShowResultsToStudent = exam.ShowResultsToStudent,
-        Group = exam.Group,
-        Subject = exam.Subject,
-        Teacher = exam.Teacher is null ? null : new UserSummaryDto
+        if (exam == null) return null;
+
+        return new ExamResponseDto
         {
-            Id = exam.Teacher.Id,
-            FullName = exam.Teacher.FullName,
-            Email = exam.Teacher.Email,
-            Role = exam.Teacher.Role.ToString()
-        }
-    };
+            Id = exam.Id,
+            Title = exam.Title,
+            StartTime = exam.StartTime,
+            DurationMinutes = exam.DurationMinutes,
+            Status = exam.Status,
+            ShuffleQuestions = exam.ShuffleQuestions,
+            ShuffleOptions = exam.ShuffleOptions,
+            ShowResultsToStudent = exam.ShowResultsToStudent,
+            Group = exam.Group != null ? (GroupResponseDto)exam.Group : null,
+            Subject = exam.Subject != null ? (SubjectResponseDto)exam.Subject : null,
+            Teacher = exam.Teacher is null ? null : new UserSummaryDto
+            {
+                Id = exam.Teacher.Id,
+                FullName = exam.Teacher.FullName,
+                Email = exam.Teacher.Email,
+                Role = exam.Teacher.Role.ToString()
+            }
+        };
+    }
 }

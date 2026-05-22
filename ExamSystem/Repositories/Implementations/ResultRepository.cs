@@ -32,4 +32,16 @@ public class ResultRepository : GenericRepository<ExamResult>, IResultRepository
         .Where(r => r.StartedAt != null && r.SubmittedAt == null)
         .Include(r => r.Exam)
         .ToListAsync();
+
+    public async Task<List<ExamResult>> GetAllWithDetailsAsync() =>
+    await _dbSet
+        .Include(r => r.Exam)
+        .Include(r => r.Student)
+        .ToListAsync();
+
+    public async Task<ExamResult?> GetByIdWithDetailsAsync(int id) =>
+        await _dbSet
+            .Include(r => r.Exam)
+            .Include(r => r.Student)
+            .FirstOrDefaultAsync(r => r.Id == id);
 }

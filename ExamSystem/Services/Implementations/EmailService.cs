@@ -5,19 +5,23 @@ using System.Net.Mail;
 
 namespace ExamSystem.Services.Implementations;
 
-public class EmailService : IEmailService
+public class EmailService(IConfiguration _config) : IEmailService
 {
     public async Task SendEmailAsync(string toEmail, string subject, string body)
     {
         var client = new SmtpClient("smtp.gmail.com", 587)
         {
             EnableSsl = true,
-            Credentials = new NetworkCredential("sizin_sistem_maili@gmail.com", "app_parolunuz")
+            Credentials = new NetworkCredential(
+                _config["Email:SenderEmail"],
+                _config["Email:AppPassword"]
+            )
         };
 
-        var mailMessage = new MailMessage("sizin_sistem_maili@gmail.com", toEmail, subject, body)
+        var mailMessage = new MailMessage(
+            _config["Email:SenderEmail"]!, toEmail, subject, body)
         {
-            IsBodyHtml = true // Link göndərdiyimiz üçün HTML formatında gedir
+            IsBodyHtml = true
         };
 
         await client.SendMailAsync(mailMessage);
