@@ -14,7 +14,7 @@ namespace ExamSystem.Controllers;
 public class ExamController(IExamService _examService) : ApiControllerBase
 {
     [HttpGet]
-    [Authorize(Roles = "Admin,Teacher")]
+    [Authorize]
     public async Task<IActionResult> GetAll()
     {
         var result = await _examService.GetAllAsync();
@@ -22,7 +22,7 @@ public class ExamController(IExamService _examService) : ApiControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(Roles = "Admin,Teacher")]
+    [Authorize]
     public async Task<IActionResult> GetById(int id)
     {
         var result = await _examService.GetByIdAsync(id);

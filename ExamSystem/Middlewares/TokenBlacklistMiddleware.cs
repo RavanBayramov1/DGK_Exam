@@ -6,14 +6,19 @@ public class TokenBlacklistMiddleware(RequestDelegate next)
 {
     public async Task InvokeAsync(HttpContext context, ITokenBlacklistService blacklistService)
     {
-        var token = context.Request.Headers["Authorization"]
-            .ToString().Replace("Bearer ", "");
+        var authHeader = context.Request.Headers["Authorization"].ToString();
 
-        if (!string.IsNullOrEmpty(token) && await blacklistService.IsBlacklistedAsync(token))
+        if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
         {
-            context.Response.StatusCode = 401;
-            await context.Response.WriteAsJsonAsync(new { error = "Token etibarsızdır." });
-            return;
+            var token = authHeader.Substring("Bearer ".Length).Trim();
+
+            if (!string.IsNullOrEmpty(token) && await blacklistService.IsBlacklistedAsync(token))
+            {
+                context.Response.StatusCode = 401;
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsJsonAsync(new { error = "Token etibarsızdır (Blacklisted)." });
+                return;
+            }
         }
 
         await next(context);

@@ -1,6 +1,5 @@
 ﻿using ExamSystem.Data;
 using ExamSystem.Models;
-using ExamSystem.Repositories.Implemantations;
 using ExamSystem.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

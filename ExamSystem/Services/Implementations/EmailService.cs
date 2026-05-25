@@ -18,7 +18,7 @@ public class EmailService(IConfiguration _config) : IEmailService
             )
         };
 
-        var mailMessage = new MailMessage(
+        using var mailMessage = new MailMessage(
             _config["Email:SenderEmail"]!, toEmail, subject, body)
         {
             IsBodyHtml = true

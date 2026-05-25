@@ -261,7 +261,7 @@
     "ContainingType": "ExamSystem.Controllers.GroupController",
     "Method": "AddStudent",
     "RelativePath": "api/Group/{groupId}/add-student/{studentId}",
-    "HttpMethod": "PUT",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -282,7 +282,7 @@
     "ContainingType": "ExamSystem.Controllers.GroupController",
     "Method": "AddTeacher",
     "RelativePath": "api/Group/{groupId}/add-teacher/{teacherId}",
-    "HttpMethod": "PUT",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -303,7 +303,7 @@
     "ContainingType": "ExamSystem.Controllers.GroupController",
     "Method": "RemoveStudent",
     "RelativePath": "api/Group/{groupId}/remove-student/{studentId}",
-    "HttpMethod": "PUT",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -324,7 +324,7 @@
     "ContainingType": "ExamSystem.Controllers.GroupController",
     "Method": "RemoveTeacher",
     "RelativePath": "api/Group/{groupId}/remove-teacher/{teacherId}",
-    "HttpMethod": "PUT",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [

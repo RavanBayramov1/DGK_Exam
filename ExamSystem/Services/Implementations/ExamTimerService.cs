@@ -15,17 +15,15 @@ IHubContext<ExamHub> _hubContext) : BackgroundService
         {
             using var scope = _scopeFactory.CreateScope();
             var resultRepo = scope.ServiceProvider.GetRequiredService<IResultRepository>();
-            var examRepo = scope.ServiceProvider.GetRequiredService<IExamRepository>();
             var examService = scope.ServiceProvider.GetRequiredService<IExamService>();
 
             var activeResults = await resultRepo.GetActiveResultsAsync();
 
-            foreach(var result in activeResults)
+            foreach (var result in activeResults)
             {
-                var exam = await examRepo.GetByIdAsync(result.ExamId);
-                if (exam is null) continue;
+                if (result.Exam is null) continue; // ✅ artıq include edilib
 
-                var endTime = result.StartedAt!.Value.AddMinutes(exam.DurationMinutes);
+                var endTime = result.StartedAt!.Value.AddMinutes(result.Exam.DurationMinutes);
                 var remaining = endTime - DateTime.UtcNow;
 
                 if (remaining <= TimeSpan.Zero)
@@ -34,12 +32,13 @@ IHubContext<ExamHub> _hubContext) : BackgroundService
                         .User(result.StudentId.ToString())
                         .SendAsync("TimeUp");
 
-
                     await examService.AutoSubmitExamAsync(result.Id);
                 }
                 else
                 {
-                    await _hubContext.Clients.User(result.StudentId.ToString()).SendAsync("TimeRemaining", (int)remaining.TotalSeconds);
+                    await _hubContext.Clients
+                        .User(result.StudentId.ToString())
+                        .SendAsync("TimeRemaining", (int)remaining.TotalSeconds);
                 }
             }
             await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);

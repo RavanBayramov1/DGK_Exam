@@ -1,5 +1,6 @@
 ﻿using ExamSystem.Enums;
 using ExamSystem.Models.Common;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace ExamSystem.Models;
 
 public class Exam : BaseEntity
@@ -7,9 +8,9 @@ public class Exam : BaseEntity
     public string Title { get; set; }
     public DateTime StartTime { get; set; }
     public int DurationMinutes { get; set; }
-    public ExamStatus Status { get; set; } = ExamStatus.Draft;
 
-    // ClassTime Funksiyaları
+    public ExamStatus Status { get; set; }
+
     public bool ShuffleQuestions { get; set; }
     public bool ShuffleOptions { get; set; }
     public bool ShowResultsToStudent { get; set; }

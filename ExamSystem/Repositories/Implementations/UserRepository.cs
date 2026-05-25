@@ -4,7 +4,7 @@ using ExamSystem.Models;
 using ExamSystem.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace ExamSystem.Repositories.Implemantations;
+namespace ExamSystem.Repositories.Implementations;
 
 public class UserRepository : GenericRepository<AppUser>, IUserRepository
 {

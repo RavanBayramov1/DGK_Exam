@@ -4,7 +4,7 @@ using ExamSystem.Models;
 using ExamSystem.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace ExamSystem.Repositories.Implemantations;
+namespace ExamSystem.Repositories.Implementations;
 
 public class ExamRepository : GenericRepository<Exam>, IExamRepository
 {
@@ -45,8 +45,10 @@ public class ExamRepository : GenericRepository<Exam>, IExamRepository
         .Include(e => e.Teacher)
         .ToListAsync();
     public async Task<List<Exam>> GetActiveAndScheduledAsync() =>
-    await _dbSet
-        .Where(e => !e.IsDeleted &&
-               (e.Status == ExamStatus.Scheduled || e.Status == ExamStatus.Active))
-        .ToListAsync();
+        await _dbSet
+            .Where(e => !e.IsDeleted &&
+                   (e.Status == ExamStatus.Draft ||
+                    e.Status == ExamStatus.Scheduled ||
+                    e.Status == ExamStatus.Active))
+            .ToListAsync();
 }

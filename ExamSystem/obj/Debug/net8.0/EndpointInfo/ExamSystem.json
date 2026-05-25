@@ -516,7 +516,7 @@
       }
     },
     "/api/Group/{groupId}/add-student/{studentId}": {
-      "put": {
+      "post": {
         "tags": [
           "Group"
         ],
@@ -548,7 +548,7 @@
       }
     },
     "/api/Group/{groupId}/remove-student/{studentId}": {
-      "put": {
+      "delete": {
         "tags": [
           "Group"
         ],
@@ -580,7 +580,7 @@
       }
     },
     "/api/Group/{groupId}/add-teacher/{teacherId}": {
-      "put": {
+      "post": {
         "tags": [
           "Group"
         ],
@@ -612,7 +612,7 @@
       }
     },
     "/api/Group/{groupId}/remove-teacher/{teacherId}": {
-      "put": {
+      "delete": {
         "tags": [
           "Group"
         ],
@@ -1337,14 +1337,15 @@
       },
       "LoginDto": {
         "required": [
+          "email",
           "password"
         ],
         "type": "object",
         "properties": {
           "email": {
+            "minLength": 1,
             "type": "string",
-            "format": "email",
-            "nullable": true
+            "format": "email"
           },
           "password": {
             "minLength": 1,
@@ -1365,6 +1366,7 @@
       },
       "RegisterDto": {
         "required": [
+          "email",
           "fullName",
           "password"
         ],
@@ -1375,9 +1377,9 @@
             "type": "string"
           },
           "email": {
+            "minLength": 1,
             "type": "string",
-            "format": "email",
-            "nullable": true
+            "format": "email"
           },
           "password": {
             "minLength": 8,
@@ -1429,6 +1431,13 @@
           "questionId": {
             "type": "integer",
             "format": "int32"
+          },
+          "selectedOptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
           },
           "isCorrect": {
             "type": "boolean",

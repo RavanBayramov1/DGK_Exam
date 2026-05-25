@@ -26,6 +26,12 @@ public class SubjectService(ISubjectRepository _subjectRepo) : ISubjectService
 
     public async Task<ServiceResult<SubjectResponseDto>> CreateAsync(CreateSubjectDto dto)
     {
+        bool exists = await _subjectRepo.AnyAsync(s =>
+        s.Name.ToLower() == dto.Name.ToLower().Trim());
+
+        if (exists)
+            return ServiceResult<SubjectResponseDto>.Failure(ErrorMessages.Subject.AlreadyExists);
+
         Subject subject = dto;
         await _subjectRepo.AddAsync(subject);
         await _subjectRepo.SaveChangesAsync();

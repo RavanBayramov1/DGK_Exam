@@ -7,9 +7,15 @@ public class TokenBlacklistService(IConnectionMultiplexer _redis) : ITokenBlackl
 {
     private readonly IDatabase _db = _redis.GetDatabase();
 
-    public async Task AddToBlacklistAsync(string token, TimeSpan expiry) =>
-        await _db.StringSetAsync(token, "blacklisted", expiry);
+    public async Task AddToBlacklistAsync(string token, TimeSpan expiry)
+    {
+        if (expiry <= TimeSpan.Zero)
+        {
+            return;
+        }
 
+        await _db.StringSetAsync(token, "blacklisted", expiry);
+    }
     public async Task<bool> IsBlacklistedAsync(string token) =>
         await _db.KeyExistsAsync(token);
 }

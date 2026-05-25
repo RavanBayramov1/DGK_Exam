@@ -3,11 +3,9 @@ using ExamSystem.Data;
 using ExamSystem.Extensions;
 using ExamSystem.Hubs;
 using ExamSystem.Middlewares;
-using ExamSystem.Repositories.Implemantations;
-using ExamSystem.Repositories.Interfaces;
 using ExamSystem.Seeds;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+
 
 namespace ExamSystem;
 
@@ -47,6 +45,16 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
 
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", policy =>
+            {
+                policy.AllowAnyOrigin()
+                      .AllowAnyMethod()
+                      .AllowAnyHeader();
+            });
+        });
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -61,6 +69,8 @@ public class Program
         app.UseMiddleware<TokenBlacklistMiddleware>();
         app.UseAuthorization();
         app.MapHub<ExamHub>("/hubs/exam");
+
+        app.UseCors("AllowAll");
 
         using (var scope = app.Services.CreateScope())
         {

@@ -11,7 +11,6 @@ public class QuestionResponseDto
     public QuestionType Type { get; set; }
     public decimal DefaultPoints { get; set; }
     public List<string> Options { get; set; }
-    public List<string> CorrectAnswers { get; set; }
     public SubjectResponseDto Subject { get; set; }
 
     public static implicit operator QuestionResponseDto(Question question)

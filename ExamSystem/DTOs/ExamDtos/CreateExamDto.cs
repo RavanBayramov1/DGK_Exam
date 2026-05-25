@@ -36,7 +36,6 @@ public class CreateExamDto
         ShowResultsToStudent = dto.ShowResultsToStudent,
         GroupId = dto.GroupId,
         SubjectId = dto.SubjectId,
-        Status = ExamStatus.Draft
-        // TeacherId controller-də set olunur
+        Status = ExamStatus.Scheduled
     };
 }

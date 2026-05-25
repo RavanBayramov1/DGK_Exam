@@ -19,7 +19,7 @@ public class ExamHub : Hub
     public async Task AnswerSelected(int examId, int questionId, List<string> selectedOptions)
     {
         await Clients.Group($"exam_{examId}_teacher")
-            .SendAsync("StudentAsnwered", new
+            .SendAsync("StudentAnswered", new
             {
                 StudentId = Context.UserIdentifier,
                 QuestionId = questionId,

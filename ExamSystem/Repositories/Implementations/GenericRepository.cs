@@ -4,7 +4,7 @@ using ExamSystem.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace ExamSystem.Repositories.Implemantations;
+namespace ExamSystem.Repositories.Implementations;
 
 public class GenericRepository<T>(AddDbContext _context) : IGenericRepository<T> where T : BaseEntity
 {

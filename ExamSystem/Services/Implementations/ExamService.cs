@@ -8,7 +8,7 @@ using ExamSystem.Services.Interfaces;
 
 namespace ExamSystem.Services.Implementations;
 
-public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo, IExamQuestionRepository _examQuestionRepo) : IExamService
+public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo, IExamQuestionRepository _examQuestionRepo) :IExamService
 {
     public async Task<ServiceResult<List<ExamResponseDto>>> GetAllAsync()
     {
@@ -118,7 +118,7 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
         return ServiceResult<StartExamDto>.Success(startExamDto);
     }
 
-    public async Task<ServiceResult> SubmitExamAsync(SubmitExamDto dto, int? studentId)
+    public async Task<ServiceResult> SubmitExamAsync(SubmitExamDto dto, int studentId)
     {
         var result = await _resultRepo.GetByIdAsync(dto.ResultId);
         if (result is null)

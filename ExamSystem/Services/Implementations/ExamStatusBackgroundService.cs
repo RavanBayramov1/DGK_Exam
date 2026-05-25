@@ -15,6 +15,7 @@ public class ExamStatusBackgroundService(IServiceScopeFactory _scopeFactory) : B
             var examRepo = scope.ServiceProvider.GetRequiredService<IExamRepository>();
 
             var now = DateTime.UtcNow;
+
             var exams = await examRepo.GetActiveAndScheduledAsync();
 
             foreach (var exam in exams)
@@ -34,6 +35,7 @@ public class ExamStatusBackgroundService(IServiceScopeFactory _scopeFactory) : B
             }
 
             await examRepo.SaveChangesAsync();
+
             await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
         }
     }

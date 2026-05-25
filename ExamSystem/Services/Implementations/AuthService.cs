@@ -5,6 +5,7 @@ using ExamSystem.Models;
 using ExamSystem.Repositories.Interfaces;
 using ExamSystem.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
+using static ExamSystem.Common.ErrorMessages;
 
 namespace ExamSystem.Services.Implementations;
 
@@ -45,6 +46,11 @@ public class AuthService(IEmailService _emailService,IUserRepository _userRepo,I
         var jwtToken = handler.ReadJwtToken(token);
         var expiry = jwtToken.ValidTo - DateTime.UtcNow;
 
+        if (expiry > TimeSpan.Zero)
+        {
+            await _blacklistService.AddToBlacklistAsync(token, expiry);
+        }
+
         await _blacklistService.AddToBlacklistAsync(token, expiry);
         return ServiceResult.Success();
     }
@@ -52,20 +58,19 @@ public class AuthService(IEmailService _emailService,IUserRepository _userRepo,I
     public async Task<ServiceResult> ForgetPasswordAsync(string email)
     {
         var user = await _userRepo.GetByEmailAsync(email.ToLower().Trim());
-        if (user is null || user.IsDeleted)
-            return ErrorMessages.User.NotFound;
 
-        user.PasswordResetToken = Guid.NewGuid().ToString();
-        user.ResetTokenExpireTime = DateTime.UtcNow.AddMinutes(15);
+        if (user is not null && !user.IsDeleted)
+        {
+            user.PasswordResetToken = Guid.NewGuid().ToString();
+            user.ResetTokenExpireTime = DateTime.UtcNow.AddMinutes(15);
 
-        _userRepo.Update(user);
-        await _userRepo.SaveChangesAsync();
+            _userRepo.Update(user);
+            await _userRepo.SaveChangesAsync();
 
-        string resetLink = $"https://examsystem.com/reset-password?email={user.Email}&token={user.PasswordResetToken}";
-
-        string emailBody = $"Parolunuzu sıfırlamaq üçün bu linkə klikləyin: <a href='{resetLink}'>Parolu Sıfırla</a>";
-
-        await _emailService.SendEmailAsync(user.Email, "Parolun Sıfırlanması", emailBody);
+            string resetLink = $"https://examsystem.com/reset-password?email={user.Email}&token={user.PasswordResetToken}";
+            string emailBody = $"Parolunuzu sıfırlamaq üçün bu linkə klikləyin: <a href='{resetLink}'>Parolu Sıfırla</a>";
+            await _emailService.SendEmailAsync(user.Email, "Parolun Sıfırlanması", emailBody);
+        }
 
         return ServiceResult.Success();
     }
