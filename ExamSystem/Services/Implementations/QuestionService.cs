@@ -15,13 +15,13 @@ public class QuestionService(IQuestionRepository _questionRepo) : IQuestionServi
         return ServiceResult<List<QuestionResponseDto>>.Success(result);
     }
 
-    public async Task<ServiceResult<QuestionResponseDto>> GetByIdAsync(int id)
+    public async Task<ServiceResult<QuestionDetailDto>> GetByIdAsync(int id)
     {
         var question = await _questionRepo.GetByIdWithDetailAsync(id);
         if (question is null)
             return ErrorMessages.Question.NotFound;
 
-        return ServiceResult<QuestionResponseDto>.Success(question);
+        return ServiceResult<QuestionDetailDto>.Success(question);
     }
 
     public async Task<ServiceResult<List<QuestionResponseDto>>> GetByExamIdAsync(int examId)

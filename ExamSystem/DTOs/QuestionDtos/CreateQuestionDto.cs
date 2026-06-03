@@ -21,6 +21,7 @@ public class CreateQuestionDto
 
     [Required(ErrorMessage = "Fənn boş ola bilməz.")]
     public int SubjectId { get; set; }
+    public IFormFile? MediaFile { get; set; }
 
     public static implicit operator Question(CreateQuestionDto dto) => new()
     {

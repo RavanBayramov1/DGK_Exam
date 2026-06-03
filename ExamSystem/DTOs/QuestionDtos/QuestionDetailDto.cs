@@ -13,6 +13,7 @@ public class QuestionDetailDto
     public List<string> Options { get; set; }
     public List<string> CorrectAnswers { get; set; }  // ← burda var
     public SubjectResponseDto Subject { get; set; }
+    public string? MediaUrl { get; set; }
 
     public static implicit operator QuestionDetailDto(Question question)
     {
@@ -25,7 +26,8 @@ public class QuestionDetailDto
             DefaultPoints = question.DefaultPoints,
             Options = question.Options,
             CorrectAnswers = question.CorrectAnswers,
-            Subject = question.Subject != null ? (SubjectResponseDto)question.Subject : null
+            Subject = question.Subject != null ? (SubjectResponseDto)question.Subject : null,
+            MediaUrl = null
         };
     }
 }

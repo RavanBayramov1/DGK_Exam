@@ -21,5 +21,7 @@ public class Question : BaseEntity
     public int SubjectId { get; set; }
     public Subject Subject { get; set; }
 
+    public string? MediaPath { get; set; }
+
     public ICollection<ExamQuestion> ExamQuestions { get; set; }
 }

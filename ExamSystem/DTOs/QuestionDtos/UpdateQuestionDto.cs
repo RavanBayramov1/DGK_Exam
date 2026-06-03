@@ -18,6 +18,7 @@ public class UpdateQuestionDto
 
     public List<string> Options { get; set; }
     public List<string> CorrectAnswers { get; set; }
+    public IFormFile? MediaFile { get; set; }
 
     [Required(ErrorMessage = "Fənn boş ola bilməz.")]
     public int SubjectId { get; set; }

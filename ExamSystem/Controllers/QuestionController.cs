@@ -43,7 +43,7 @@ public class QuestionController(IQuestionService _questionService) : ApiControll
 
     [HttpPost]
     [Authorize(Roles = "Admin,Teacher")]
-    public async Task<IActionResult> Create(CreateQuestionDto dto)
+    public async Task<IActionResult> Create([FromForm] CreateQuestionDto dto)
     {
         var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _questionService.CreateAsync(dto, teacherId);
@@ -55,7 +55,7 @@ public class QuestionController(IQuestionService _questionService) : ApiControll
 
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin,Teacher")]
-    public async Task<IActionResult> Update(int id, UpdateQuestionDto dto)
+    public async Task<IActionResult> Update([FromForm] int id, UpdateQuestionDto dto)
     {
         var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _questionService.UpdateAsync(id, dto, teacherId);

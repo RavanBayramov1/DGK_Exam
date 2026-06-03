@@ -33,6 +33,8 @@ public static class ErrorMessages
     {
         public static Error NotFound => new("Question.NotFound", ErrorType.NotFound, "Sual tapılmadı.");
         public static Error Unauthorized => new("Question.Unauthorized", ErrorType.Unauthorized, "Bu sual üzərində redaktəyə icazəniz yoxdur.");
+        public static Error InvalidFileType => new("Question.InvalidFileType", ErrorType.Validation, "Yalnız şəkil faylı yüklənə bilər.");
+        public static Error FileTooLarge => new("Question.FileTooLarge", ErrorType.Validation, "Fayl həcmi 5MB-dan böyük ola bilməz.");
     }
 
     public static class Group

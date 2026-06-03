@@ -1,5 +1,6 @@
 ﻿using ExamSystem.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Text.Json;
 
@@ -21,6 +22,22 @@ public class AddDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        var stringListComparer = new ValueComparer<List<string>>(
+        (c1, c2) => c1.SequenceEqual(c2), // İki siyahının elementlərinin eyni olub-olmadığını yoxlayır
+        c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())), // Hash kodunu hesablayır
+        c => c.ToList() // Kopyasını yaradır
+    );
+
+        modelBuilder.Entity<Question>()
+            .Property(q => q.Options)
+            .Metadata
+            .SetValueComparer(stringListComparer);
+
+        modelBuilder.Entity<Question>()
+            .Property(q => q.CorrectAnswers)
+            .Metadata
+            .SetValueComparer(stringListComparer);
 
         // Əlaqələr
         modelBuilder.Entity<AppUser>()

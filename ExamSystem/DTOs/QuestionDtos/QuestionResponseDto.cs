@@ -12,6 +12,7 @@ public class QuestionResponseDto
     public decimal DefaultPoints { get; set; }
     public List<string> Options { get; set; }
     public SubjectResponseDto Subject { get; set; }
+    public string? MediaUrl { get; set; }
 
     public static implicit operator QuestionResponseDto(Question question)
     {
@@ -24,8 +25,8 @@ public class QuestionResponseDto
             Type = question.Type,
             DefaultPoints = question.DefaultPoints,
             Options = question.Options,
-            Subject = question.Subject != null ? (SubjectResponseDto)question.Subject : null
-
+            Subject = question.Subject != null ? (SubjectResponseDto)question.Subject : null,
+            MediaUrl = null
         };
     }
 }
