@@ -9,7 +9,7 @@ public static class AdminSeeder
     public static void Seed(IServiceProvider serviceProvider)
     {
         using var scope = serviceProvider.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<AddDbContext>();
+        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
         if (!context.Users.Any(u => u.Role == UserRole.Admin))
         {

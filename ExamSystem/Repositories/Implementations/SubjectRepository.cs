@@ -7,7 +7,7 @@ namespace ExamSystem.Repositories.Implementations;
 
 public class SubjectRepository : GenericRepository<Subject>, ISubjectRepository
 {
-    public SubjectRepository(AddDbContext context) : base(context) { }
+    public SubjectRepository(AppDbContext context) : base(context) { }
 
     public async Task<List<Subject>> GetByGroupIdAsync(int groupId) =>
         await _dbSet

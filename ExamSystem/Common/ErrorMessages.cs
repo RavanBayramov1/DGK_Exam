@@ -35,6 +35,8 @@ public static class ErrorMessages
         public static Error Unauthorized => new("Question.Unauthorized", ErrorType.Unauthorized, "Bu sual üzərində redaktəyə icazəniz yoxdur.");
         public static Error InvalidFileType => new("Question.InvalidFileType", ErrorType.Validation, "Yalnız şəkil faylı yüklənə bilər.");
         public static Error FileTooLarge => new("Question.FileTooLarge", ErrorType.Validation, "Fayl həcmi 5MB-dan böyük ola bilməz.");
+        public static Error MediaUploadFailed = new("Question.Internal", ErrorType.Internal, "Fayl yüklənərkən xəta baş verdi.");
+        public static  Error MediaDeleteFailed = new("Question.MediaDeleteFailed", ErrorType.Internal, "Fayl silinərkən xəta baş verdi.");
     }
 
     public static class Group
@@ -53,5 +55,13 @@ public static class ErrorMessages
     public static class Result
     {
         public static Error NotFound => new("Result.NotFound", ErrorType.NotFound, "Nəticə tapılmadı.");
+    }
+
+    public static class Minio
+    {
+        public static Error UploadFailed => new("Minio.UploadFailed", ErrorType.InternalServer, "Fayl yüklənmədi.");
+        public static Error DeleteFailed => new("Minio.DeleteFailed", ErrorType.InternalServer, "Fayl silinmədi.");
+        public static Error GetFailed => new("Minio.GetFailed", ErrorType.InternalServer, "Fayl URL-i alınmadı.");
+        public static Error NotFound => new("Minio.NotFound", ErrorType.NotFound, "Fayl tapılmadı.");
     }
 }

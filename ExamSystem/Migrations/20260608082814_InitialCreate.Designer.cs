@@ -13,9 +13,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ExamSystem.Migrations
 {
-    [DbContext(typeof(AddDbContext))]
-    [Migration("20260603085824_AddMediaPathToQuestion")]
-    partial class AddMediaPathToQuestion
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20260608082814_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -288,6 +288,9 @@ namespace ExamSystem.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("MediaPath")
+                        .HasColumnType("text");
 
                     b.Property<string>("Options")
                         .IsRequired()

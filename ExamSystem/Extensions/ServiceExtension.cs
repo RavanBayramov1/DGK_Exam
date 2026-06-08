@@ -35,6 +35,7 @@ public static class ServiceExtensions
         services.AddScoped<IResultService, ResultService>();
         services.AddScoped<ISubjectService, SubjectService>();
         services.AddScoped<ITokenBlacklistService, TokenBlacklistService>();
+        services.AddSingleton<MinioService>();
         return services;
     }
     

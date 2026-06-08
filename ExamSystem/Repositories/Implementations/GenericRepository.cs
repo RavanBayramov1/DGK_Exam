@@ -6,14 +6,14 @@ using System.Linq.Expressions;
 
 namespace ExamSystem.Repositories.Implementations;
 
-public class GenericRepository<T>(AddDbContext _context) : IGenericRepository<T> where T : BaseEntity
+public class GenericRepository<T>(AppDbContext _context) : IGenericRepository<T> where T : BaseEntity
 {
     protected readonly DbSet<T> _dbSet = _context.Set<T>();
 
     public async Task<List<T>> GetAllAsync() =>
         await _dbSet.ToListAsync();
 
-    public async Task<T?> GetByIdAsync(int id) =>
+    public virtual async Task<T?> GetByIdAsync(int id) =>
         await _dbSet.FindAsync(id);
 
     public async Task AddAsync(T entity) =>

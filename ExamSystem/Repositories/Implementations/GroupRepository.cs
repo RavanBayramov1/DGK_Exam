@@ -7,7 +7,7 @@ namespace ExamSystem.Repositories.Implementations;
 
 public class GroupRepository : GenericRepository<Group>, IGroupRepository
 {
-    public GroupRepository(AddDbContext context) : base(context) { }
+    public GroupRepository(AppDbContext context) : base(context) { }
 
     public async Task<Group?> GetWithDetailsAsync(int id) =>
         await _dbSet

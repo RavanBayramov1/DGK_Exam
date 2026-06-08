@@ -660,19 +660,72 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/CreateQuestionDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateQuestionDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateQuestionDto"
+                "required": [
+                  "QuestionText",
+                  "SubjectId",
+                  "Type"
+                ],
+                "type": "object",
+                "properties": {
+                  "QuestionText": {
+                    "minLength": 5,
+                    "type": "string"
+                  },
+                  "Type": {
+                    "$ref": "#/components/schemas/QuestionType"
+                  },
+                  "DefaultPoints": {
+                    "maximum": 100,
+                    "minimum": 0,1,
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Options": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "CorrectAnswers": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "SubjectId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "MediaFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "QuestionText": {
+                  "style": "form"
+                },
+                "Type": {
+                  "style": "form"
+                },
+                "DefaultPoints": {
+                  "style": "form"
+                },
+                "Options": {
+                  "style": "form"
+                },
+                "CorrectAnswers": {
+                  "style": "form"
+                },
+                "SubjectId": {
+                  "style": "form"
+                },
+                "MediaFile": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -723,19 +776,72 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateQuestionDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateQuestionDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateQuestionDto"
+                "required": [
+                  "QuestionText",
+                  "SubjectId",
+                  "Type"
+                ],
+                "type": "object",
+                "properties": {
+                  "QuestionText": {
+                    "minLength": 5,
+                    "type": "string"
+                  },
+                  "Type": {
+                    "$ref": "#/components/schemas/QuestionType"
+                  },
+                  "DefaultPoints": {
+                    "maximum": 100,
+                    "minimum": 0,1,
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Options": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "CorrectAnswers": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "MediaFile": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "SubjectId": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "encoding": {
+                "QuestionText": {
+                  "style": "form"
+                },
+                "Type": {
+                  "style": "form"
+                },
+                "DefaultPoints": {
+                  "style": "form"
+                },
+                "Options": {
+                  "style": "form"
+                },
+                "CorrectAnswers": {
+                  "style": "form"
+                },
+                "MediaFile": {
+                  "style": "form"
+                },
+                "SubjectId": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -1266,48 +1372,6 @@
         },
         "additionalProperties": false
       },
-      "CreateQuestionDto": {
-        "required": [
-          "questionText",
-          "subjectId",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "questionText": {
-            "minLength": 5,
-            "type": "string"
-          },
-          "type": {
-            "$ref": "#/components/schemas/QuestionType"
-          },
-          "defaultPoints": {
-            "maximum": 100,
-            "minimum": 0,1,
-            "type": "number",
-            "format": "double"
-          },
-          "options": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "correctAnswers": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "subjectId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
       "CreateSubjectDto": {
         "required": [
           "name"
@@ -1542,48 +1606,6 @@
           "name": {
             "minLength": 2,
             "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateQuestionDto": {
-        "required": [
-          "questionText",
-          "subjectId",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "questionText": {
-            "minLength": 5,
-            "type": "string"
-          },
-          "type": {
-            "$ref": "#/components/schemas/QuestionType"
-          },
-          "defaultPoints": {
-            "maximum": 100,
-            "minimum": 0,1,
-            "type": "number",
-            "format": "double"
-          },
-          "options": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "correctAnswers": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "subjectId": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

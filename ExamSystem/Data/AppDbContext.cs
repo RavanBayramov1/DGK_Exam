@@ -7,9 +7,9 @@ using System.Text.Json;
 namespace ExamSystem.Data;
 
 
-public class AddDbContext : DbContext
+public class AppDbContext : DbContext
 {
-    public AddDbContext(DbContextOptions<AddDbContext> options) : base(options) { }
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<AppUser> Users { get; set; }
     public DbSet<Group> Groups { get; set; }
@@ -24,20 +24,22 @@ public class AddDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         var stringListComparer = new ValueComparer<List<string>>(
-        (c1, c2) => c1.SequenceEqual(c2), // İki siyahının elementlərinin eyni olub-olmadığını yoxlayır
-        c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())), // Hash kodunu hesablayır
-        c => c.ToList() // Kopyasını yaradır
+        (c1, c2) => c1.SequenceEqual(c2), 
+        c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())), 
+        c => c.ToList() 
     );
 
-        modelBuilder.Entity<Question>()
-            .Property(q => q.Options)
-            .Metadata
-            .SetValueComparer(stringListComparer);
+        modelBuilder.Entity<Question>(entity =>
+        {
+            // PostgreSQL-də JSONB kimi tanınması üçün (.NET 8 və sonrası üçün ən ideal yol):
+            entity.Property(e => e.Options)
+                .HasColumnType("jsonb")
+                .Metadata.SetValueComparer(stringListComparer);
 
-        modelBuilder.Entity<Question>()
-            .Property(q => q.CorrectAnswers)
-            .Metadata
-            .SetValueComparer(stringListComparer);
+            entity.Property(e => e.CorrectAnswers)
+                .HasColumnType("jsonb")
+                .Metadata.SetValueComparer(stringListComparer);
+        });
 
         // Əlaqələr
         modelBuilder.Entity<AppUser>()
@@ -101,9 +103,9 @@ public class AddDbContext : DbContext
 
 
 
-//public class AddDbContext : DbContext
+//public class AppDbContext : DbContext
 //{
-//    public AddDbContext(DbContextOptions<AddDbContext> options) : base(options) { }
+//    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
 //    public DbSet<AppUser> Users { get; set; }
 //    public DbSet<Group> Groups { get; set; }

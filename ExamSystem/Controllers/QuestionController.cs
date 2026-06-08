@@ -55,7 +55,7 @@ public class QuestionController(IQuestionService _questionService) : ApiControll
 
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin,Teacher")]
-    public async Task<IActionResult> Update([FromForm] int id, UpdateQuestionDto dto)
+    public async Task<IActionResult> Update([FromRoute] int id, [FromForm] UpdateQuestionDto dto)
     {
         var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         var result = await _questionService.UpdateAsync(id, dto, teacherId);

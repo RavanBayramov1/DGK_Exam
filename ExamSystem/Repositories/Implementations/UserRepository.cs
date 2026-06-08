@@ -8,7 +8,7 @@ namespace ExamSystem.Repositories.Implementations;
 
 public class UserRepository : GenericRepository<AppUser>, IUserRepository
 {
-    public UserRepository(AddDbContext context) : base(context) { }
+    public UserRepository(AppDbContext context) : base(context) { }
 
     public async Task<AppUser?> GetByEmailAsync(string email) =>
         await _dbSet.FirstOrDefaultAsync(u => u.Email == email);

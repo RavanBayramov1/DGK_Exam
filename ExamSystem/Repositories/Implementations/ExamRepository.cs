@@ -8,7 +8,7 @@ namespace ExamSystem.Repositories.Implementations;
 
 public class ExamRepository : GenericRepository<Exam>, IExamRepository
 {
-    public ExamRepository(AddDbContext context) : base(context) { }
+    public ExamRepository(AppDbContext context) : base(context) { }
 
     public async Task<Exam?> GetWithDetailsAsync(int id) =>
         await _dbSet
