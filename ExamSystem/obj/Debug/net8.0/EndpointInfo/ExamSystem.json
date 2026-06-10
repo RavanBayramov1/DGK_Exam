@@ -1420,13 +1420,12 @@
       },
       "QuestionType": {
         "enum": [
-          0,
-          1,
-          2,
-          3
+          "SingleChoice",
+          "MultipleChoice",
+          "TrueFalse",
+          "OpenText"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
       },
       "RegisterDto": {
         "required": [
@@ -1644,12 +1643,11 @@
       },
       "UserRole": {
         "enum": [
-          0,
-          1,
-          2
+          "Admin",
+          "Teacher",
+          "Student"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
       }
     },
     "securitySchemes": {

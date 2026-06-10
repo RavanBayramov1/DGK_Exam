@@ -11,18 +11,18 @@ namespace ExamSystem.Services.Implementations;
 public class QuestionService(IQuestionRepository _questionRepo, MinioService _minioService) : IQuestionService
 {
     private const string SubPath = "questions";
-    public async Task<ServiceResult<List<QuestionResponseDto>>> GetAllAsync()
+public async Task<ServiceResult<List<QuestionResponseDto>>> GetAllAsync(int teacherId)
+{
+    var questions = await _questionRepo.GetByTeacherIdAsync(teacherId);
+    var tasks = questions.Select(async q =>
     {
-        var questions = await _questionRepo.GetAllWithDetailAsync();
-        var tasks = questions.Select(async q =>
-        {
-            var dto = (QuestionResponseDto)q;
-            dto.MediaUrl = await GetPresignedUrlOrNull(q.MediaPath);
-            return dto;
-        });
-        var result = await Task.WhenAll(tasks);
-        return ServiceResult<List<QuestionResponseDto>>.Success(result.ToList());
-    }
+        var dto = (QuestionResponseDto)q;
+        dto.MediaUrl = await GetPresignedUrlOrNull(q.MediaPath);
+        return dto;
+    });
+    var result = await Task.WhenAll(tasks);
+    return ServiceResult<List<QuestionResponseDto>>.Success(result.ToList());
+}
 
     public async Task<ServiceResult<QuestionDetailDto>> GetByIdAsync(int id)
     {

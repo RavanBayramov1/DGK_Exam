@@ -50,7 +50,7 @@ public class ExamService(IExamRepository _examRepo,IResultRepository _resultRepo
             return ErrorMessages.Exam.NotDraft;
 
         exam.Title = dto.Title;
-        exam.StartTime = dto.StartTime;
+        exam.StartTime = DateTime.SpecifyKind(dto.StartTime, DateTimeKind.Utc);
         exam.DurationMinutes = dto.DurationMinutes;
         exam.ShuffleQuestions = dto.ShuffleQuestions;
         exam.ShuffleOptions = dto.ShuffleOptions;

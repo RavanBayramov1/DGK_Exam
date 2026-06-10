@@ -41,7 +41,10 @@ public class Program
         //SignalR
         builder.Services.AddSignalR();
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+                options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter()));
+
         builder.Services.AddEndpointsApiExplorer();
 
 
@@ -65,12 +68,12 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+        app.UseCors("AllowAll");
         app.UseAuthentication();
         app.UseMiddleware<TokenBlacklistMiddleware>();
         app.UseAuthorization();
         app.MapHub<ExamHub>("/hubs/exam");
 
-        app.UseCors("AllowAll");
 
         using (var scope = app.Services.CreateScope())
         {

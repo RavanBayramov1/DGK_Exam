@@ -95,7 +95,7 @@ public class MinioService
             return ErrorMessages.Minio.DeleteFailed;
         }
     }
-    public async Task<bool> FileExistsAsync(string fullPath)
+    private async Task<bool> FileExistsAsync(string fullPath)
     {
         try
         {

@@ -29,7 +29,7 @@ public class CreateExamDto
     public static implicit operator Exam(CreateExamDto dto) => new()
     {
         Title = dto.Title,
-        StartTime = dto.StartTime,
+        StartTime = DateTime.SpecifyKind(dto.StartTime, DateTimeKind.Utc),
         DurationMinutes = dto.DurationMinutes,
         ShuffleQuestions = dto.ShuffleQuestions,
         ShuffleOptions = dto.ShuffleOptions,

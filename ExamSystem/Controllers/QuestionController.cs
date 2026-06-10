@@ -18,7 +18,8 @@ public class QuestionController(IQuestionService _questionService) : ApiControll
     [Authorize(Roles = "Admin,Teacher")]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _questionService.GetAllAsync();
+        var teacherId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = await _questionService.GetAllAsync(teacherId);
         return Ok(result.Data);
     }
 
